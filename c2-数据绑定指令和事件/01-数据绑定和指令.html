@@ -7,7 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="app">{{msg}}</div>
+    <div id="app">
+        <!-- 文本插值的用法 -->
+        <hr>
+        {{msg}} <br>
+        {{ 6+6 * 5 }} →☞可以进行简单的四则运算 <br>
+        {{ 6 &lt; 3 ? msg : a }}→☞可以用三元运算符 <br>
+        <!-- {{ if(6>3) {} }}→☞这里是多个表达式了，只能支持 单个表达式 -->
+        <!-- {{ var a = 6}}→☞这个也是多行表达式， var a;a=6; -->
+
+
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         var app = new Vue({
