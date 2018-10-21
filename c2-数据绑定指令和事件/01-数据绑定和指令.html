@@ -18,10 +18,29 @@
             data: {
                 msg: "Vue学习开始了",
                 a: 2
+            },
+            // --------②生命周期钩子---------
+            created: function() {
+                alert('我是Vue实例，创建完成，还未挂载到DOM')
+                console.log(this.$el) //undefined
+            },
+            mounted: function() {
+                console.log(this.$el) //这个结果→☞ div#app，而且结果的出现有延时，循环到中途才出现！
+                // 这种姿势会让结果显得和created一样
+                alert('我是Vue实例，已经挂载到DOM')
+                // 这种姿势延时了执行，可见数据已经渲染了
+                // setTimeout(()=>{
+                //     alert('我是Vue实例，已经挂载到DOM')
+                // },1000)
+                // 这个就循环到中途，然后就渲染了数据
+                for(let i = 1; i<1000; i++ ) {
+                    console.log('1')
+                }
+                console.log(this.$el) //DOM元素 →☞<div id="app">Vue学习开始了</div>
             }
 
         })
-        // ——————————————————————————访问属性——————————————————————————————
+        // ——————————————————————————①访问属性——————————————————————————————
         // 访问Vue实例的属性,需要一个$
         console.log(app.$el) //app这个DOM元素，而不是字符串'#app'
         console.log(app.$data) //一个对象，有两个属性a和msg
