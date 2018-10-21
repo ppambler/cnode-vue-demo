@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">{{msg}}</div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            // 这个实例将挂载到哪个DOM元素呢？
+            // 可以是标签名,一般使用的是id，毕竟一页面中唯一的DOM元素
+            el: "#app",
+            // 声明app中需要双向绑定的数据
+            data: {
+                msg: "Vue学习开始了",
+                a: 2
+            }
+
+        })
+        // ——————————————————————————访问属性——————————————————————————————
+        // 访问Vue实例的属性,需要一个$
+        console.log(app.$el) //app这个DOM元素，而不是字符串'#app'
+        console.log(app.$data) //一个对象，有两个属性a和msg
+        // PS:不加$会怎么样
+        console.log(app.el) //undefined
+        console.log(app.data) //undefined
+        // 访问data中的属性
+        console.log(app.msg) //Vue学习开始了
+        console.log(app.a)  //2
+        // 不能这样，因为undefined.msg
+        // console.log(app.data.msg)
+        // 那么vue实例是个怎样的对象呢？
+        console.log(app)
+    </script>
+</body>
+</html>
