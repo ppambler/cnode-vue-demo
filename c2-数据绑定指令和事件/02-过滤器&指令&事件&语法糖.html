@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>需求：如何在页面中实时显示当前时间？</title>
+    <style>
+        .toRed {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 
@@ -14,6 +19,27 @@
         <hr>
         <!-- 管道符|接过滤器的名字，可以一直接，即过滤器的串联 -->
         {{date | formatDate }}
+        <hr>
+        <!-- 指令和事件 -->
+        <p>v-text指令：</p>
+        文本插值(两个大胡子)：{{apple}} <br>
+        <span v-text="apple"></span>
+        <hr>
+        <p>v-html指令：</p>
+        <p>尝试3中姿势，✎：</p>
+        文本插值：{{ banana }} <br>
+        v-text指令：<span v-text='banana'></span> <br>
+        v-html指令：<span v-html='banana'></span>
+        <hr>
+        <p>v-bind指令：绑定活的属性</p>
+        <p>同样，尝试三种姿势，✎：</p>
+        <!-- <div class="{{className}}"></div> //不行 -->
+        <!--  <div class="className"></div> //不行 -->
+        <div v-bind:class="className">我是红色的</div>
+        <hr>
+        <p>v-on指令：绑定事件监听</p>
+        <button v-on:click = 'count'>{{countNum}}</button>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -26,7 +52,11 @@
         var app = new Vue({
             el: '#dateApp',
             data: {
-                date: new Date()
+                date: new Date(),
+                apple: '苹果',
+                banana: '<span style="color: yellow;">香蕉</span>',
+                className: 'toRed',
+                countNum: 0
             },
             // 时间并没有动起来，所以需要这个函数
             mounted:function() {
@@ -55,6 +85,12 @@
                     var sec = plusDate(date.getSeconds()) //秒
                     // 把整理好的数据返回
                     return `${year}年${month}月${day}日，${hours}:${min}:${sec}`
+                }
+            },
+            // vue中用 到的所有方法都定义在methods中
+            methods: {
+                count:function() {
+                    this.countNum = this.countNum+1
                 }
             }
         })
