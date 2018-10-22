@@ -9,11 +9,20 @@
 <body>
 
     <div id="dateApp">
+        <!-- 过滤前的结果 ,这个结果有引号，而且这是new Date().toJSON()的结果-->
         {{date}}
+        <hr>
+        <!-- 管道符|接过滤器的名字，可以一直接，即过滤器的串联 -->
+        {{date | formatDate }}
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
+        // 定义这个函数是为了在月份、日期、小时等小于10的时候补0
+        // 没想到这个函数放在app下面竟然没有执行哈！不过想了想也对！因为我们这是用赋值定义的
+        var plusDate = function(value) {
+            return value < 10 ? '0'+value : value
+        }
         var app = new Vue({
             el: '#dateApp',
             data: {
@@ -31,9 +40,24 @@
                 if(this.timer) {
                     clearInterval(this.timer)
                 }
+            },
+            // 定义过滤器，之所以搞个s，那是因为过滤器可不止一个哈！
+            filters: {
+                // 第一个参数就是需要过滤的数值，不需要显示传进来
+                formatDate: function(value) {
+                    // 将字符串转化为data类型
+                    var date = new Date(value)
+                    var year = date.getFullYear() //年
+                    var month = plusDate(date.getMonth()+1) //月，之所以加1，那是0开始
+                    var day = plusDate(date.getDate()) //日
+                    var hours = plusDate(date.getHours()) //时
+                    var min = plusDate(date.getMinutes()) //分
+                    var sec = plusDate(date.getSeconds()) //秒
+                    // 把整理好的数据返回
+                    return `${year}年${month}月${day}日，${hours}:${min}:${sec}`
+                }
             }
         })
-       
     </script>
 </body>
 </html>
