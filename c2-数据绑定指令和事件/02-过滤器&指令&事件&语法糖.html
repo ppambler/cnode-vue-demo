@@ -41,7 +41,11 @@
         <button v-on:click = 'count'>{{countNum}}</button>
         <!-- 点击一个同时加，但这不是我们想要的！而是它们各自为营，互不相干！如何做到呢？后面填坑 -->
         <button v-on:click = 'count'>{{countNum}}</button>
-
+        <hr>
+        <p>语法糖：v-bind:calss→☞:class；v-on:click→☞@click</p>
+        <!-- 语法糖 -->
+        <div :class="className">我是红色的</div>
+        <button @click = 'count'>{{countNum}}</button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
