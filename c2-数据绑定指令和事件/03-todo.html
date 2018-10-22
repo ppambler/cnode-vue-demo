@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .yellow {
+        color:yellowgreen;
+    }
+    </style>
+</head>
+
+<body>
+    <pre>
+            代码实战：
+
+            要求：
+            
+                1.渲染文本到页面
+                2.渲染HTML到页面
+                3.动态绑定属性（任意属性均可）
+                4.绑定一个事件
+                5.必须使用到过滤器
+
+            上述要求必须使用到，v-text,v-html,v-bind,v-on,过滤器，内容不限，场景不限，旨在对本节课的指令事件进行练习
+    </pre>
+    <hr>
+    <div id="app">
+        {{msg}}
+        <div v-text='msgText'></div>
+        <div v-html='msgHtml'></div>
+        <div v-bind:class='className'>今天几号？</div>
+        <button v-on:click='addOne'>{{num}}号</button>
+        <p>那么，今天吃什么好呢？</p>
+        <p>吃{{retData.eat | formatEat }}</p>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello,World!',
+                msgText: 'Text！',
+                msgHtml: '<span style="color:red">HTML!<span>',
+                className: 'yellow',
+                num: 6,
+                money: 666.5,
+                retData: {
+                    eat: 'e1',
+                    others: '随便'
+                }
+            },
+            methods: {
+                addOne() {
+                    if(this.num < 31 && this.num%2 === 0) {
+                        this.num = this.num + 1
+                        this.retData.eat = 'e0'
+                    } else if(this.num < 31 && this.num%2 != 0) {
+                        this.num = this.num + 1
+                        this.retData.eat = 'e1'
+                    } else {
+                        this.num = 1
+                        this.retData.eat = 'e0'
+                    }
+                }
+            },
+            filters: {
+                formatEat: function (value) {
+                    if (value[0] === 'e') {
+                        switch (Number(value[1])) {
+                            case 0:
+                                return '饭'
+                                // break;
+                            case 1:
+                                return '面'
+                                // break;
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
