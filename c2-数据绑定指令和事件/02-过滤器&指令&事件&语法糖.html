@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>需求：如何在页面中实时显示当前时间？</title>
+</head>
+<body>
+
+    <div id="dateApp">
+        {{date}}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#dateApp',
+            data: {
+                date: new Date()
+            },
+            // 时间并没有动起来，所以需要这个函数
+            mounted:function() {
+                var _this = this
+                // 这里的timer是为了砸了这个表
+                this.timer = setInterval(function() {
+                    _this.date = new Date()
+                },1000)
+            },
+            beforeDestroy: function() {
+                if(this.timer) {
+                    clearInterval(this.timer)
+                }
+            }
+        })
+       
+    </script>
+</body>
+</html>
