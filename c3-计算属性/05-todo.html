@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{reverseText}} <br>
+        {{reverseText1()}}
+    </div>
+    <div id="app2">
+        {{fullName1}} <br>
+        {{fullName}}
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                text: 'Hello，World!'
+            },
+            computed: {
+                reverseText: function() {
+                    return this.text.split('').reverse().join('')
+                }
+            },
+            methods: {
+                reverseText1:function() {
+                    return this.text.split('').reverse().join('')
+                }
+            }
+        })
+        var app2 = new Vue({
+            el: '#app2',
+            data: {
+                firstName: '带',
+                lastName: '你飞',
+                fullName: '带 你飞'
+            },
+            computed: {
+                fullName1:function() {
+                    // console.log('执行fullName1')
+                    return this.fullName = this.firstName+ ' ' + this.lastName
+                }
+            },
+            // watch: {
+            //     firstName: function(value) {
+            //         // console.log('1')
+            //         this.fullName = value  + this.lastName
+            //     },
+            //     lastName: function(value) {
+            //         // console.log('2')
+            //         this.fullName = this.firstName + value
+            //     }
+            // }
+
+        })
+    </script>
+</body>
+</html>
