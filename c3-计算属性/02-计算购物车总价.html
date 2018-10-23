@@ -21,6 +21,15 @@
         <hr>
         <p>听说app2的计算属性还可以依赖其它Vue实例的数据，那么app1你准备好了吗？</p>
         {{prices}}
+        
+        <hr>
+        <p>**只要app1或者app2中任一数据变化，计算属性就会重新执行，视图也会更新。**</p>
+        测试demo:
+        <pre>
+                app1.msg = '666'
+                app2.package2[0].price = 9999
+        </pre>
+        <p>谁叫你app2中的计算属性prices既依赖自身实例的data，还依赖其它Vue实例（如这里的app1）的data啊！</p>
     </div>
     <div id="xxx"></div>
     <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
