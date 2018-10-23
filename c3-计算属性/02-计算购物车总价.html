@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>需求：计算购物车中的所有物品的价格</title>
+</head>
+<body>
+    <div id="demo">
+        <p>直接用文本插值计算：</p>
+        {{ 
+            package1[0].price * package1[0].count+package1[1].price * package1[1].count +
+            package2[0].price * package2[0].count+package2[1].price * package2[1].count
+        }}
+        <br>
+
+        <p>使用计算属性。两个购物车总计：</p>
+        {{prices}}
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var app2 = new Vue({
+            el: '#demo',
+            data: {
+                // 购物车1买了啥？
+                package1: [
+                    {
+                        name: 'iPhone',
+                        price: 6666,
+                        count: 2
+                    },
+                    {
+                        name: 'iPad',
+                        price: '3600',
+                        count: 1
+                    }
+                ],
+                // 那么购物车2呢？
+                package2: [
+                    {
+                        name: 'iPhone8',
+                        price: 8888,
+                        count: 3
+                    },
+                    {
+                        name: 'iPad',
+                        price: 3600,
+                        count: 6
+                    }
+                ]
+            },
+            // 定义计算属性
+            computed: {
+                // 你要依赖的数据是什么结构，那么你就看看怎么算吧！
+                prices: function() {
+                    var prices = 0
+                    for (let i = 0; i < this.package1.length; i++) {
+                        prices += this.package1[i].price * this.package1[i].count;
+                    }
+                    for (let i = 0; i < this.package2.length; i++) {
+                        prices += this.package2[i].price * this.package2[i].count;
+                    }
+                    return prices
+                }
+            }
+        })
+    </script>
+</body>
+</html>
