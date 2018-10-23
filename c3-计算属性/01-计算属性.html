@@ -14,6 +14,9 @@
             {{text.split('，').reverse().join('，')}} <br>
         <p>假如需求增加，那么demo的逻辑会增加，这样demo就会变得臃肿，从而难以维护！</p>
         <p>所以遇到复杂的逻辑时，应当使用计算属性！</p>
+        <hr>
+        <p>下边是使用计算属性得到的结果：</p>
+        {{ reverseText }} <br>
     </div>
     <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
     <script>
@@ -22,6 +25,18 @@
             el: '#demo',
             data: {
                 text: '我，爱，你'
+            },
+            // 定义计算属性
+            computed: {
+                // 只要依赖data中的属性进行计算的，我们都可以使用计算属性！
+                // 由于计算属性——reverseText也是个属性，所以可以直接渲染到页面中！
+                // 而且computed与data是一个套路，都是在Vue实例下可以直接拿到的属性，
+                // 总之就是用户自定义的属性了，没有$前缀，直接this.reverseText
+                // 还有页面默认拿到的结果是getter的结果，也就是return的值
+                reverseText: function() {
+                    // 搞个依赖
+                    return this.text.split('，').reverse().join('，')
+                }
             }
         })
     </script>
