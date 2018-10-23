@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>需求：显示当前时间距离1970年的时间戳</title>
+</head>
+<body>
+    <div id="app4">
+        <p>计算属性的缓存：</p>
+        {{ now }} 
+        <p>通过methods拿到时间戳（方法需要加括号）：</p>
+        {{ thisTime() }}
+        <p>如何让这2个数据变起来？</p>
+        <p>让msg变化就好了！</p>
+        <p>我是msg的文本插值：{{msg}}</p>
+        <pre>
+                app4.msg = 666
+        </pre>
+        <p>msg的值发生了变化，计算属性now并咩有变化，而methods里的thisTime函数并没有任何依赖，却刷新了！</p>
+        <p>我重复app.msg = 666，页面似乎一动也不动哈！</p>
+        <p>难道页面一旦发生了渲染，那么调用的thisTime函数就会执行一遍？？？</p>
+        <p>一个页面咩有用到的数据，如xxx</p>
+        <pre>
+                app4.xxx = 666
+        </pre>
+        <p>我在控制台执行了它，但是页面一点波纹都没有出现！</p>
+        <p>要让计算属性发生变化？很简单，搞个依赖就好了！依赖变化它也就变了</p>
+        <p>我是有依赖的计算属性now1：{{now1}}</p>
+        <p>我这个依赖是mehtods啊！显然它比并没有发生变化，当我更改msg的时候，thisTime()执行了</p>
+        <p>不要依赖methods的计算属性now2：{{now2}}</p>
+        <pre>
+                app4.msg = 777
+        </pre>
+        <p>执行了这个，除了那个thisTime()会执行以外，now2的值也发生了变化！</p>
+
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var app4 = new Vue({ 
+            el:'#app4',
+            data: { 
+                msg: '我是msg！',
+                xxx: '我不会在页面中渲染！！',
+                yyy: '我是now2依赖的值！！！'    
+            }, 
+            computed: {
+                now: function() {
+                    // 不要new Date()，此刻的Date是个工具函数！
+                    return Date.now()
+                },
+                now1: function() {
+                    return Date.now() + '--------' + this.thisTime()
+                },
+                now2: function() {
+                    return Date.now() + '--------' + this.yyy
+                }
+            },
+            methods: {
+                thisTime() {
+                    return Date.now()
+                },
+            }
+        })
+    </script>
+</body>
+</html>
