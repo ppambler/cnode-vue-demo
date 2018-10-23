@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算属性</title>
+</head>
+<body>
+    <div id="demo">
+        <p>直接一个text：</p>
+            {{text}} <br>
+        <p>让文本插值复杂一点：</p>
+            {{text.split('，').reverse().join('，')}} <br>
+        <p>假如需求增加，那么demo的逻辑会增加，这样demo就会变得臃肿，从而难以维护！</p>
+        <p>所以遇到复杂的逻辑时，应当使用计算属性！</p>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        // 需求：'我，爱，你'→☞'你，爱，我'
+        var app = new Vue({
+            el: '#demo',
+            data: {
+                text: '我，爱，你'
+            }
+        })
+    </script>
+</body>
+</html>
