@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p>v-bind的作用是：绑定活的属性！！！</p>
+        <p>没有用v-bind：</p>
+        <a href="http://baidu.com">百度一下</a> <br>
+        <p>使用了v-bind的姿势：</p>
+        <a v-bind:href="url">{{text}}</a> <br>
+        <img :src="imgUrl" alt="">
+        <button @click='change'>我还是用谷歌好了！！！</button>
+        <button @click='backout'>不能翻墙？还是用百度好了！！！</button>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                text: '百度一下',
+                url: 'http://baidu.com',
+                imgUrl: 'https://www.baidu.com/img/bd_logo1.png?where=super'
+            },
+            methods: {
+                change() {
+                    this.text = 'Google一下',
+                    this.url = 'https://www.google.com.hk/?gws_rd=ssl',
+                    this.imgUrl = 'https://www.google.com.hk/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+                },
+                backout() {
+                    this.text = '百度一下',
+                    this.url = 'http://baidu.com',
+                    this.imgUrl = 'https://www.baidu.com/img/bd_logo1.png?where=super'
+                }
+            }
+        })
+    </script>
+</body>
+</html>
