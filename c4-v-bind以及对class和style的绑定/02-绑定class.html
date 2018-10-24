@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>对象语法和数组语法</title>
+    <style>
+        .divStyle {
+            height: 100px;
+            width: 100px;
+            background-color: yellowgreen;
+        }
+        .borderStyle {
+            border: 10px solid #dddddd;
+        }
+        button {
+            height: 50px;
+            color: yellowgreen;
+        }
+        .black {
+            background-color: black;
+        }
+        .red {
+            background-color: red;
+        }
+        .active {
+            height: 100px;
+            width: 100px;
+            background-color: rgb(145, 218, 247);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        绑定class：<br>
+        <hr>
+        绑定class对象语法：对象的键是类名，值是布尔值 <br>
+        <div :class = '{ divStyle: isActive}'></div>
+        <p>这个hash的value来自data中关联的布尔值</p>
+        <hr>
+        <p>既然是个hash(表)，那么我就继续添加类名呗！如添加个边框样式</p>
+        <div :class = '{ divStyle: isActive, borderStyle: isBorder}'></div>
+        <hr>
+        <p>学了这个知识点，那就来点需求……</p>
+        <p>需求：点击一个按钮。来回切换其背景颜色为红、黑</p>
+        <button @click='changeBgc' :class='{black: isblack, red: isRed}'>点击我就切换背景！！!哈哈</button>
+        <hr>
+        <p>如果value是多个操作的表达式的话吗，那么我们可以搞个计算属性！而不是data中的属性</p>
+        <div :class='classnames'></div>
+        <p>你点击一下下面这个按钮，你就能看到上面这个用肉眼不可见的元素了</p>
+        <button @click='addStyle'>点击！！！</button>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                isActive : true,
+                isBorder: true,
+                isblack: true,
+                isRed: false
+            },
+            // 得要返回一个对象
+            computed: {
+                classnames: function() {
+                    return {
+                        active: this.isActive && !this.isBorder
+                    }
+                }
+            },
+            methods: {
+                changeBgc() {
+                    this.isblack = !this.isblack
+                    this.isRed = !this.isRed
+                },
+                addStyle() {
+                    this.isBorder = !this.isBorder
+                }
+            }
+        })
+    </script>
+</body>
+</html>
