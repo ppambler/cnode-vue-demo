@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .sure {
+            border: 10px solid yellowgreen;
+            width: 100px;
+            height: 100px;
+        }
+        .need {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>如何混用呢？</p>
+        <p>有这么一个场景：这个元素的class有2个值，一个值视情况而定，而另一个则是永久的</p>
+        <p>就像是你这个div必须有确定的border和宽高，而背景颜色就视情况而定了，如点击一下切换个背景色</p>
+        <div :class='[yes,{need: isNeed}]' @click='changeBgc'></div>
+        <p>简单归纳一下，数组中的某个元素是个变量，那么他就来自data中</p>
+        <p>如果是个对象那么key就是它的class,value则是布尔值，这个布尔值来自data</p>
+        <p>最后渲染的结果只有两种情况：要么只有一个sure，要么有sure和need</p>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                yes: 'sure',
+                isNeed: true 
+            },
+            methods: {
+                changeBgc() {
+                    this.isNeed = !this.isNeed
+                }
+            }
+        })
+    </script>
+</body>
+</html>
