@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>绑定内联样式：</p>
+        <p>键代表style的属性，值就代表属性对应的值</p>
+        <p>切记：vue中只要是大写字母，都会给你装换成-加小写</p>
+        <p>如：fontSize→☞font-size; abDeFg→☞ab-de-fg</p>
+        <hr>
+        <p>对象语法：</p>
+        <div v-bind:style="{color:color,'font-size':fontSize+'px'}">
+            我是绑定了内联样式的div
+        </div>
+        <p>我测试了一下这个「切记」，data中的key有「-」会报错，</p>
+        <p>这意味着style的值，即对象，那么该对象的value要想正常使用就不要出现「-」了</p>
+        <p>如果写的这个对象，不对其key加引号的话，那么key就不要出现「-」,如果需要「-」的key那就加上引号好了</p>
+        <p>不想对key写引号，那么就用小驼峰好了！</p>
+        <p>反正你只有2个选择，要么‘font-size’，要么fontSize，千万不要'font-Size'(其实这个也可以哈)和fontsize</p>
+        <p>ps：似乎这个切记是针对css样式属性名的</p>
+        <p>ps：属性(读作class属性)→☞「class="xxx"」，属性名→☞「class」,属性值→☞「xxx」</p>
+        <hr>
+        <p>数组语法：</p>
+        <p>很简单</p>
+        <div :style='[styleA,styleB]'>我是数组语法</div>
+        <p>这个在实际开发中不常用，咩有理由写多个元素然后把样式合并起来（写一个对象的事儿！）。除非你先布局，然后写元素特有的样式(我猜的额)</p>
+        <p>用得最多的还是对象那种姿势！！！同class一样也是可以使用计算属性的</p>
+        <hr>
+        <p>还有就是，通过绑定style来添加样式的话，在使用CSS3的样式属性时，而vue则会自动添加前缀，如transform</p>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                color: 'red',
+                fontSize: 36,
+                styleA: {
+                    fontSize: 28+'px',
+                    color: 'yellowgreen'
+                },
+                styleB: {
+                    border: '10px solid red'
+                }
+            }
+        })
+    </script>
+</body>
+</html>
