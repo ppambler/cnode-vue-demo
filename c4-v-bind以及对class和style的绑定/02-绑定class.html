@@ -29,6 +29,9 @@
             width: 100px;
             background-color: rgb(145, 218, 247);
         }
+        .error {
+            border: 20px solid yellowgreen;
+        }
     </style>
 </head>
 <body>
@@ -50,6 +53,10 @@
         <div :class='classnames'></div>
         <p>你点击一下下面这个按钮，你就能看到上面这个用肉眼不可见的元素了</p>
         <button @click='addStyle'>点击！！！</button>
+        <hr>
+        <p>绑定class数组语法：数组中的成员直接对应类名</p>
+        <p>特点：数组中只要有这个成员，那么始终会有对应的类名</p>
+        <div :class='[activeClass, errorClass]'>我是数组绑定的class</div>
     </div>
     <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
     <script>
@@ -59,7 +66,9 @@
                 isActive : true,
                 isBorder: true,
                 isblack: true,
-                isRed: false
+                isRed: false,
+                activeClass: 'active',
+                errorClass: 'error'
             },
             // 得要返回一个对象
             computed: {
