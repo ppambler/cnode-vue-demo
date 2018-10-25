@@ -12,10 +12,10 @@
   - [04-计算属性的缓存](./c3-计算属性/04-计算属性的缓存.html)
   - [05-todo](./c3-计算属性/05-todo.html)
 - c4-v-bind以及对class和style的绑定
-  - [01-v-bind](./amb/01-v-bind.html)
-  - [02-绑定class](./amb/02-绑定class.html)
-  - [03-数组语法和对象语法混用](./amb/03-数组语法和对象语法混用.html)
-  - [04-v-bind在组件上使用](./amb/04-v-bind在组件上使用.html)
-  - [05-绑定内联样式](./amb/05-绑定内联样式.html)
+  - [01-v-bind](./c4-v-bind以及对class和style的绑定/01-v-bind.html)
+  - [02-绑定class](./c4-v-bind以及对class和style的绑定/02-绑定class.html)
+  - [03-数组语法和对象语法混用](./c4-v-bind以及对class和style的绑定/03-数组语法和对象语法混用.html)
+  - [04-v-bind在组件上使用](./c4-v-bind以及对class和style的绑定/04-v-bind在组件上使用.html)
+  - [05-绑定内联样式](./c4-v-bind以及对class和style的绑定/05-绑定内联样式.html)
 - 
 
