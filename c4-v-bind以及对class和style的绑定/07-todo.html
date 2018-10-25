@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-bind-class-数组语法</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="container1">
+        <!-- 仅仅数组 -->
+        <div :class="[huClas,heClas]">{{name}}</div>
+        <!-- 三元表达式 -->
+        <div :class="[isAge?huClas:heClas,ju]">{{name}},还行吧！</div>
+        <!-- 该模式下类名huijia一直存在，还有一个类名根据isAge的真假来判断去留 -->
+        <div :class="arrMethod">{{name}},有点不好看</div>
+        <!-- 计算属性huijia一直存在，其他的根据情况 -->
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var myApp1 = new Vue({  
+            el:"#container1",  
+            data:{  
+                judge1:false,  
+                isAge:true,  
+                name:"功夫熊猫",  
+                huClas:"haha",  
+                heClas:"heihei",  
+                ju:"huijia"  
+            },  
+            // 条件多的时候  
+            computed:{  
+                arrMethod:function(){  
+                    return [  
+                        this.ju,  
+                        {  
+                            heClas:this.judge1&&this.isAge,  
+                            huClas:this.isAge  
+                        }  
+                    ]  
+                }  
+            }  
+        })  
+    </script>
+</body>
+</html>

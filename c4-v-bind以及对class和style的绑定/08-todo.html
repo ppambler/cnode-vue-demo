@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-bind:style</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="container" :style="{color:color,fontSize:fontSize+'px'}">  
+        {{house}}  
+        <!-- 计算属性 -->  
+        <h2 :style="style1">{{house}}</h2>  
+        <!-- data中的 -->  
+        <h3 :style="style">{{house}}</h3>  
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var myApp = new Vue({  
+            el:"#container",  
+            data:{  
+                house:"英格里拉大酒店",  
+                color:"red",  
+                fontSize:18,  
+                style:{  
+                    background:"yellow",  
+                    fontSize:24+"px"  
+                }  
+            },  
+            // 计算属性  
+            computed:{  
+                style1:function(){  
+                    return {  
+                        fontSize:this.fontSize+"px",  
+                        fontWeight:"italic",  
+                        border:"1px solid #ff0000"  
+                    }  
+                }  
+            }  
+        })  
+    </script>
+</body>
+</html>

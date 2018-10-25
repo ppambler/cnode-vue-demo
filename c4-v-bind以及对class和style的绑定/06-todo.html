@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-bind-class-对象语法</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="container">
+        <p :class="{fontCol:isName,setBack:!isAge}" class="weight">{{name}}</p>
+        <i :class="addClass">{{name}}真好看！</i>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var myApp = new Vue({  
+            el:"#container",  
+            // 条件比较少  
+            data:{  
+                isName:true,  
+                isAge:false,  
+                name:"张老师"  
+            },  
+            // 条件多的时候  
+            computed:{  
+                addClass:function(){  
+                    return {  
+                        checked:this.isName&&!this.isAge  
+                    }  
+                }  
+            }  
+        })  
+    </script>
+</body>
+</html>
