@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div v-for="study in arr">{{study}}</div>
+        <p>在控制台测试数组更新</p>
+        <pre>
+                app.arr.push('你好')
+                app.arr.pop('你好')
+                app.arr.shift('l')
+                app.arr.unshift('666')
+                app.arr.splice(0,1,'777')
+        </pre>
+        <p>如果你这样，app.arr.sort()，那么是没有效果，毕竟没有给出按默认的姿势去排序</p>
+        <button @click="sortArr">点我排序</button>
+        <button @click="reverseArr">点我进行数组的翻转</button>
+        <p>以上这些方法改变数组的话，这页面都会发生重新渲染！</p>
+        <p>当然，还会有一些不管你怎么改变我也不听的方法</p>
+        <hr>
+        <button @click="changeOne">改变数组的指定项</button>
+        <button @click="changeArrLength">改变数组的长度</button>
+        <p>页面翁丝不动……</p>
+        <p>我们就是想改变数组的某一项，Vue中给我们提供了一个setter方法用于改变数组中的某一个元素</p>
+        <pre>
+            Vue.set(app.arr,1,"既然app.arr[0]='哈哈'不行，那么就setter方法吧！")
+        </pre>
+        <p>那改变数组长度呢？</p>
+        <pre>
+            app.arr.splice(0) //这是数组长度为0的情形
+            app.arr.splice(1) //这是数组长度为1的情形
+        </pre>
+        <p>你要改变数组的长度，也就是说相对的前面保留，而相对的后面移除掉</p>
+        <hr>
+        <p>过滤：</p>
+        <p>需求：返回字符串中含有「oo」的项！</p>
+        <p>使用计算属性搞一波：</p>
+        {{matchOO}} <br>
+        <input type="text" v-model='matchData' placeholder="oo">
+        <p>我觉得这可以算是一个小功能啊！没想到可以用eval生成动态正则表达式</p>
+        <p>这个小功能算是我的学以致用了！有种在网页上ctrl+f，搜索匹配字符的赶脚……</p>
+        <hr>
+        <p>排序：</p>
+        <p>关于sort，也是可以用计算属性来搞的！</p>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                // 学习用品
+                arr: ['book','pen','pencil','eraser','paper'],
+                matchData: 'oo'
+            },
+            computed: {
+                matchOO: function() {
+                    // 这个book形参代表要过滤的每一项
+                    let zzz = this.matchData
+                    return this.arr.filter(function(book,xxx,yyy) {
+                        console.log(book)
+                        console.log(xxx)
+                        console.log(yyy)
+                        let z = zzz
+                        return book.match(eval('/'+z+'/'))
+                    })
+                }
+            },
+            methods: {
+                sortArr: function() {
+                    this.arr.sort(function(a,b) {
+                        // 小→☞大排序
+                        console.log(`a:${a}`)
+                        console.log(`b:${b}`)
+                        return a.length - b.length
+                    })
+                },
+                reverseArr() {
+                    this.arr.reverse()
+                },
+                // 改变数组的指定项
+                changeOne() {
+                    this.arr[0] = '数组大佬，我给你赋值了，你就不能意思意思一下？比如你好歹也渲染一下吧！'
+                },
+                // 改变数组的长度
+                changeArrLength() {
+                    this.arr.length = 1
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>
