@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-if+其复用性</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>v-if后接的是等号，而等号后的内容必须是布尔值哈</p>
+        <p v-if="5<3">{{apple}}</p>
+        <p v-else-if="6>3">{{pineapple}}</p>
+        <p v-else>{{banana}}</p>
+        <p>3个变量选一个，这个pineapple变量被渲染出来了，其余的经过重重判断，被忽视了</p>
+        <hr>
+        <p>v-if的实例用法</p>
+        <p>需求：点击按钮，实现用户名输入框和密码输入框的切换</p>
+        <div v-if="type==='name'">
+            用户名：<input type="text" placeholder="请输入用户名">
+        </div>
+        <div v-else>
+            密码：<input type="text" placeholder="请输入密码">
+        </div>
+        <button v-on:click="toggleType">点我切换</button>
+        <p>你会发现在按钮切换的过程中，你在用户框输入的内容跑到密码输入框里了</p>
+        <p>即便你把密码输入框的type改为password也是如此，而且你这个是密码框的话，由于输入的内容是密文</p>
+        <p>当你按下按钮切换，你会发现用户框出现了你输入的密码</p>
+        <p>为什么会这样呢？</p>
+        <p>Vue在渲染元素的时，出于效率考虑，会尽可能地复用已有的元素而非重新渲染，因此会出现乌龙</p>
+        <p>即只会渲染变化的元素，也就是说，input元素被复用了！</p>
+        <hr>
+        <p>那么如何解决呢？</p>
+        <p>解决办法：加key表唯一，即提供key值可以来决定是否复用该元素</p>
+        <div v-if="type==='name1'">
+                用户名：<input type="text" placeholder="请输入用户名"  key='x'>
+        </div>
+        <div v-else>
+            密码：<input type="text" placeholder="请输入密码"  key='y'>
+        </div>
+        <button v-on:click="toggleType1">点我切换</button>
+        <p>这个key最好加到input元素身上去，而不是div上，你v-if是写在div上就是棒棒哒，总之你想让哪个元素重新渲染你就加到哪个上</p>
+        <p>key的值随便，只要唯一即可，如果一样，那么不好意思，还是得复用</p>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                apple: '我是苹果',
+                banana: '我是香蕉',
+                pineapple: '我是菠萝，当然，你也可以叫我凤梨',
+                type: 'name',
+                type: 'name1'
+            },
+            methods: {
+                toggleType: function() {
+                    // 三目运算符
+                    this.type = (this.type === 'name' ? 'password' : 'name')
+                },
+                toggleType1: function() {
+                    // 三目运算符
+                    this.type = (this.type === 'name1' ? 'password1' : 'name1')
+                }
+            }
+        })
+    </script>
+</body>
+</html>
