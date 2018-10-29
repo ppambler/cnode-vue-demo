@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .fa {
+            height: 100px;
+            width: 100px;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>.stop的用法</p>
+        <p>阻止点击事件向上冒泡，即点你鼻子也是点你吗？</p>
+        <p>冒泡：</p>
+        <div class="fa" @click="divclick">
+            <button @click="btnclick">点击</button>
+        </div>
+        <p>不想冒泡：</p>
+        <div class="fa" @click="divclick">
+            <button @click.stop="btnclick">点击</button>
+        </div>
+        <hr>
+        <p>.prevent的用法</p>
+        <p>相当于是preventDefault()方法</p>
+        <p>总之就是提交事件并且不重载页面！</p>
+        <p>提交表单的默认姿势：</p>
+        <form action="">
+            <button type="submit">提交表单</button>
+        </form>
+        <p>你会发现每次提交表单都会重载页面，那么如何才能不让页面重载呢？</p>
+        <form action="" @submit.prevent="handle">
+            <button type="submit">提交表单</button>
+        </form>
+        <p>这个@submit是写在你要提交的对象身上的，即你要提交谁，就写在谁身上</p>
+        <p>你提交表单，那么就写在form身上哈！</p>
+        <p>可见页面并没有刷新重载，然后就执行了handle这个方法</p>
+        <hr>
+        <p>.self的用法</p>
+        <p>只是作用在元素本身而非子元素的时候调用</p>
+        <p>也就是说，即便儿子被点击了，绑定在爸爸身上的on click事件也不会被执行！总之，你就得点击在爸爸身上！</p>
+        <p>这似乎也是一种阻止冒泡的手段哈！</p>
+        <div class="fa" @click.self="divclick">
+                <button @click="btnclick">点击</button>
+        </div>
+        <hr>
+        <p>.once的用法</p>
+        <p>只执行一次的方法</p>
+        <button @click="onceMethod">执行无限次</button>
+        <button @click.once="onceMethod">只是执行了一次</button>
+        <hr>
+        <p>监听键盘事件</p>
+        <input type="text" @keyup.13 = "submitMe">
+        <p>除了可以使用指定的keycode之外，我们还可以使用一些比较快捷的名称，如：</p>
+        <p>enter、.tab、.delete……诸如此类的特别多，总之记这个没有什么意思哈！这个去官网查阅一下就可以了，还有ctrl、alt、shift等这些都有的哈</p>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                
+            },
+            methods: {
+                divclick: function() {
+                    alert('div被点击了')
+                },
+                btnclick: function() {
+                    alert('BUTTON被点击了')
+                },
+                handle: function() {
+                    alert('我不重载了，页面也不刷新了！！！')
+                },
+                onceMethod() {
+                    alert('多少次了？')
+                },
+                submitMe() {
+                    alert('您按下了enter键')
+                }
+            }
+        })
+    </script>
+</body>
+</html>
