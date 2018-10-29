@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>条件渲染指令：v-show</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p v-show='9>a'>我被显现了（注意不是渲染），因为我是true</p>
+        <p>如果我是false，还是始终占个坑，即还是可以在DOM树上看到我，不像v-if那样，它会不留痕迹</p>
+        <p v-show='false'>即便你不看到我，我还是在DOM树上占了个坑</p>
+        <p>上面有元素是吗？</p>
+        <hr>
+        <p>看一下v-if的姿势：</p>
+        <p v-if='9>b'>我v-if默认没有在DOM树上</p>
+        <p v-else>我在DOM树上！我的老哥儿v-if就不在了！</p>
+        <hr>
+        <p>v-if和v-show的比较</p>
+        <p>v-if</p>
+        <p>实时渲染，页面显示就渲染，不显示。我就给你移除</p>
+        <p>v-show</p>
+        <p>c-show元素永远存在于页面中，只是改变了css的display的属性</p>
+        <p>使用场景：</p>
+        <p>频繁的切换页面就用v-show，也就是常见的tab组件，如选项卡，毕竟页面来来去去就那几个</p>
+        <p>如果需要实时渲染，那么就用v-if了啊，如股市走势图，时刻在发生变化，毕竟你不知道下一秒会发生什么……</p>
+        <p>也许是巨大的狂喜，也许是无尽的消沉……总之股市有风险，投资需谨慎！</p>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                a: 5,
+                b: 10
+            }
+        })
+        // var i = 0;
+        // setInterval(()=> {
+        //     app.a = i
+        //     i++
+        // },1000)
+    </script>
+</body>
+</html>
