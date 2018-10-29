@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>v-cloak：</p>
+        {{msg}} <br>
+        <p>你会发现，在看见小芳二字出现时，看到了msg，什么鬼？</p>
+        <p>这就是我们所谓的「vue实例初始化慢导致页面闪动」</p>
+        <p>如何解决呢？添加个基本指令v-cloak</p>
+        <p v-cloak style="color:red;">{{aaa}}</p>
+        <p>对了，你还得配合display：none来使用（效果最好），因为这个v-cloak指令会在Vue实例编译结束后被移除</p>
+        <p>这样就能见着这个数据了啊！</p>
+        <hr>
+        <p>v-once：</p>
+        <p>没有v-once指令：</p>
+        {{notOnceData}} <br>
+        <p>当我在控制台改变这个值的时候，如app.notOnceData = 'xxx'</p>
+        <p>页面上的这个值重新渲染了！</p>
+        <p>添加个v-once指令：</p>
+        <p  v-once style="color: red;">{{onceData}}</p>
+        <p>你会发现，不管你把app.onceData给上什么值，页面上的这个值依旧一动不动</p>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var i = 0;
+        while(i < 10000) {
+            i++;
+            console.log(i)
+        }
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: '村里有个菇凉叫小芳',
+                aaa: '长得好看又善良',
+                notOnceData: '一双美丽的大眼睛辫子粗又长',
+                onceData: '在回城之前的那个晚上，你和我来到小河旁'
+            }
+        })
+    </script>
+</body>
+</html>
