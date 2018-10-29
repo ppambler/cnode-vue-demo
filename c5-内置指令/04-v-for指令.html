@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>v-for：</p>
+        <p>使用场景：如购物车界面，总之就是些列表界面</p>
+        <p>两种用法姿势：</p>
+        <hr>
+        <p>（1）遍历多个对象：</p>
+        <p>通过遍历生成一个无序列表：</p>
+        <p>学好VueJs的方法是：</p>
+        <ul>
+            <li v-for="vueMth in vueMethods">{{vueMth.name}}</li>
+        </ul>
+        <p>v-for写在要被遍历的元素上，在这里，只有一个li需要遍历，而ul只需要一个……</p>
+        <p>关于v-for的值，类似于「item in items」，item是自定义的变量，in则是v-for的一个关键字，items则是在data中，我们定义的数组哈！</p>
+        <p>这个item是我们items这个数组里面的元素，即对应着一个个的对象，需要去取数组中每个对象的name</p>
+        <p>只需要item.name即可</p>
+        <p>当然，我们还可以拿到每个li的索引，如我想知道「多思考」这个li的索引是多少？</p>
+        <ul>
+            <li v-for="(vueMth, index) in vueMethods">{{index}}——————{{vueMth.name}}</li>
+        </ul>
+        <p>带索引的写法是这样的：需要搞个括号，传入2个参数，第一个与之前的一样，代表item，而第二个代表索引</p>
+        <p>好了就这样，你就可以用文本插值拿到item的索引了！就是如此简单！</p>
+        <hr>
+        <p>（2）遍历一个对象的多个属性：</p>
+        <p>注意：你遍历多个对象，那么data中的items就是个数组啊！</p>
+        <p>同理，如果你遍历一个对象的多个属性，那么显然这个items是个普通对象咯！</p>
+        <span style="color: red;" v-for="value in nvshen">{{value}} </span>
+        <p>这个value可不是对象的key啊！</p>
+        <p>其实就跟之前的那个数组那样，第一个参数值是对象，因为key就是arr[i]哈，我们同样拿的是value呀</p>
+        <p>既然如此，那么我们是否可以拿到对象的key和该key所在的索引呢？</p>
+        <p>拿到value,key,index的写法，你可以用谐音「外开」记忆，即v-k-i</p>
+        <div v-for="(value,key,index) in nvshen">第{{index}}个女神：——键值对是：{{key}}——{{value}}</div>
+        <p>讲真，我很好奇，对象的键值对不是无序的吗？真让人郁闷，为此我还添加了那么多个女神测试……</p>
+        <p>听说 ES6 之后 JavaScript 中的对象都是有序的，既然如此，这个理由倒是可以让我信服了，毕竟ES6的语法，我并没有系统了解过！</p>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                // 每个对象对应一个li
+                // 这是个数组啊，其中有3个对象元素，这个3个家伙分别对应这个一个li
+                vueMethods: [
+                    { name: '多思考'},
+                    { name: '多练习'},
+                    { name: '听老张讲课哈！'}
+                ],
+                // 这是个对象
+                nvshen: {
+                    girl1: '郭采洁',
+                    girl2: '吴倩',
+                    girl3: '马思纯',
+                    // girl4: '郭采洁',
+                    // girl5: '吴倩',
+                    // girl6: '马思纯',
+                    // girl7: '郭采洁',
+                    // girl8: '吴倩',
+                    // girl9: '马思纯'
+                }
+            }
+        })
+    </script>
+</body>
+</html>
