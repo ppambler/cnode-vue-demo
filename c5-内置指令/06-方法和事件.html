@@ -15,6 +15,9 @@
         <button @click="handle()">点击我每次加1</button>
         <button @click="handle(8)">点击我每次加8</button>
         <p>如果方法中带有形参，但是你没有加括号，默认传原生事件对象event</p>
+        <p>那么我想既带有括号又想让方法访问原生事件对象event呢？</p>
+        <button @click="handle(666,$event)">点击我传了个$event</button>
+        <button @click="handle">不带括号</button>
     </div>
     <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
     <script>
@@ -24,7 +27,9 @@
                 count: 0
             },
             methods: {
-                handle(count) {
+                handle(count,event) {
+                    console.log(event)
+                    console.log(count)
                     count = count || 1
                     this.count += count
                 }
