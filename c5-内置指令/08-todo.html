@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .btn {
+            height: 100px;
+            width: 100px;
+            background-color: rgb(216, 248, 201);
+        }  
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>v-model：</p>
+        <input type="text" v-model="msg" placeholder="随便输点内容">
+        <p>你输入的内容是：{{msg}}</p>
+        <hr>
+        <p>v-for：</p>
+        <p>有三种水果可选……</p>
+        <ul>
+            <li v-for="item in items">{{item.fruits}}</li>
+        </ul>
+        <hr>
+        <p>v-bind，v-on：</p>
+        <button v-bind:class="['btn']" v-on:click="clickMe">clickMe</button>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: '',
+                items: [{fruits: 'apple'},{fruits: 'banana'},{fruits: 'peach'}]
+            },
+            methods: {
+                clickMe() {
+                    alert('您点击了我哈！')
+                }
+            }
+        })
+    </script>
+</body>
+</html>
