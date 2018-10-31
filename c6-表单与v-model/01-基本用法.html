@@ -109,6 +109,7 @@
         <p>还有，v-bind绑定的是2个特性哈，一个是true-value，一个是false-value</p>
         <p>（3）下拉框：</p>
         <p>其实，这个下拉框，也就是选择列表跟哪个复选框（多选按钮）是差不多的</p>
+        <p>测试的是单选的下拉框</p>
         <select v-model="selectedValue" :value="xxxValue">
                 <!-- 内联对象字面量 -->
             <option v-bind:value="{ number: 123 }">123</option>
@@ -116,7 +117,7 @@
         </select> <br>
         ————————————————现在挑中的是：{{selectedValue}} <br>
         <p>其value值，不一定是字符串，也有可能是个对象</p>
-        <p>还有就是：在select标签上绑定value值对option并没有影响</p>
+        <p>还有就是：在select标签上绑定value值对option并没有影响，你得弄在option身上才行哈！</p>
         <hr>
         <p>修饰符：</p>
         <p>（1）.lazy</p>
