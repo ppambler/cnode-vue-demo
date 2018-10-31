@@ -9,7 +9,7 @@
         
     </style>
 </head>
-<body style="margin-bottom: 2000px;">
+<body style="margin-bottom: 200px;">
     <div id="app">
         <p>v-model的用法：</p>
         <p>input输入框：</p>
@@ -109,14 +109,47 @@
         <p>还有，v-bind绑定的是2个特性哈，一个是true-value，一个是false-value</p>
         <p>（3）下拉框：</p>
         <p>其实，这个下拉框，也就是选择列表跟哪个复选框（多选按钮）是差不多的</p>
-        <select v-model="selectedValue">
+        <select v-model="selectedValue" :value="xxxValue">
                 <!-- 内联对象字面量 -->
             <option v-bind:value="{ number: 123 }">123</option>
             <option v-bind:value="optionValue">二娃</option>
         </select> <br>
         ————————————————现在挑中的是：{{selectedValue}} <br>
         <p>其value值，不一定是字符串，也有可能是个对象</p>
-        
+        <p>还有就是：在select标签上绑定value值对option并没有影响</p>
+        <hr>
+        <p>修饰符：</p>
+        <p>（1）.lazy</p>
+        <input v-model.lazy="msgLazy" >
+        输入最终的显示值：{{msgLazy}} <br>
+        <p>在“change”时而非“input”时更新，也就是说回车或者不聚焦(可以按下tab键……)在input输入框时，用户输入的数据才会被完整地呈现出来！
+            而不是之前的输入什么，就立刻渲染什么！这就是所谓的「lazy」吧！</p>
+        <p>总之，v­model默认是在input输入时实时同步输入框的数据，而lazy修饰符，可以使其
+            在失去焦点或者敲回车键之后在更新</p>
+        <p>（2）.number</p>
+        <span>不加.number：</span>
+        <input v-model="age" type="number">
+        你的年龄：{{age}}
+        <br>
+        <span>加上.number：</span>
+        <input type="number" v-model.number="ageNumber">
+        你的年龄：{{ageNumber}}
+        <p>它们二者是有区别的，没有.number的修饰符，不管你输入的是什么，age的类型都是String，
+            而加了的，ageNumber的类型则是Number（初始值是String类型）
+        </p>
+        <p>总之，将输入 的字符串转化为number类型</p>
+        <p>（3）.trim</p>
+        <span>不过滤：</span>
+        <input v-model="notTrim">
+        结果是：{{notTrim}}
+        <br>
+        <span>过滤：</span>
+        <input v-model.trim="yesTrim">
+        结果是：{{yesTrim}}
+        <br>
+        <p>可见，后者自动过滤用户输入的首尾空白字符，而前者则没有！你可以通过app.notTrim和app.yesTrim去检查效果</p>
+        <p>对了，你不要指望可以过滤中间的空白字符</p>
+        <p>总之，trim自动过滤输入过程中首尾输入的空格</p>
     </div>
     <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
     <script>
@@ -140,7 +173,14 @@
                 value2: '我没有被选中哈！',
                 // 下拉框：绑定值
                 selectedValue: true,
-                optionValue: '我是个字符串，你选中了我！'
+                xxxValue: '没影响',
+                optionValue: '我是个字符串，你选中了我！',
+                // 修饰符
+                msgLazy: '',
+                age: '',
+                ageNumber: '',
+                notTrim: '',
+                yesTrim: '',
             }
         })
     </script>
