@@ -64,6 +64,59 @@
         <p>与所有绑定的复选框的checked属性相对应，即checks为true那么所有都被选中，这就像是一荣俱荣，一损俱损</p>
         <p>有种要么全选，要么都不选的赶脚！</p>
         <p>似乎不太遵循falsy值哈，因为空数组也是没有被勾选的哈，或许数组是被特殊对待的哈！</p>
+        <hr>
+        <p>下拉框：</p>
+        <p>也分多选和单选，默认是单选的……</p>
+        <p>（1）单选：</p>
+        <select name="" id="" v-model="selected">
+            <option value="猫蛋">猫蛋</option>
+            <option value="狗蛋">狗蛋</option>
+            <option value="翠花">翠花</option>
+        </select>
+        <p>————————现在选中的是：{{selected}}</p>
+        <p>selected是个形容词哈！即「挑选出来的」之意</p>
+        <p>注意，这个v-model是弄在select身上的哈！毕竟我们要从3个中选一个，总不能每个option都弄个吧……</p>
+        <p>还有就是v-model绑定的值是字符串还是数组都行哈！</p>
+        <p>（2）多选：</p>
+        <select name="" id="" v-model="selectedMul" multiple>
+            <option value="猫蛋">猫蛋</option>
+            <option value="狗蛋">狗蛋</option>
+            <option value="翠花">翠花</option>
+        </select>
+        <p>————————现在选中的是：{{selectedMul}}</p>
+        <p>v-model绑定的值是字符串，还是数组也罢都行，如果是字符串，那么对于下拉框多选来说，都会自动地给你转化为数组姿势</p>
+        <p>对了，如果你想多选，那么你得按下Ctrl选才行，当然你也可以按住鼠标拖动哈！</p>
+        <hr>
+        <p>总结一波：</p>
+        <p>如果是单选，那么绑定的值初始化最好给字符串，因为v-model此时绑定的是静态字符串或者布尔值。
+            如果是多选，那么最好就给个数组</p>
+        <hr>
+        <p>绑定值：</p>
+        <p>也是分3部分讲的——单选按钮、复选框、下拉框</p>
+        <p>（1）单选按钮：</p>
+        <input type="radio" name="" id="" v-model="picked" v-bind:value="radioValue"><br>
+        ————————————————现在挑中的是：{{picked}}
+        <p>只需要用v-bind给单个单选框绑定一个value值，此时，v-mode绑定的就是它的value值</p>
+        <p>也就是说v-model绑定的值初始化是布尔值，当它为true时，那么v-model的值就是v-bind所绑定的value值咯!</p>
+        <p>（2）多选按钮：</p>
+        <p>需求：选中的时候是一个值，不选中的时候是另外一个值</p>
+        <input type="checkbox" name="" id="" v-model="toggle" :true-value="value1" :false-value="value2">
+        <br>
+        {{toggle}} <br>
+        被选中： {{toggle === value1 }} <br>
+        未被选中：{{toggle == value2 }} <br>
+        <p>可见，我们可以动态地去控制选中和不选中时，其值结果的动态变化</p>
+        <p>还有，v-bind绑定的是2个特性哈，一个是true-value，一个是false-value</p>
+        <p>（3）下拉框：</p>
+        <p>其实，这个下拉框，也就是选择列表跟哪个复选框（多选按钮）是差不多的</p>
+        <select v-model="selectedValue">
+                <!-- 内联对象字面量 -->
+            <option v-bind:value="{ number: 123 }">123</option>
+            <option v-bind:value="optionValue">二娃</option>
+        </select> <br>
+        ————————————————现在挑中的是：{{selectedValue}} <br>
+        <p>其value值，不一定是字符串，也有可能是个对象</p>
+        
     </div>
     <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
     <script>
@@ -76,6 +129,18 @@
                 checkname: '',
                 oneCheckbox: false,
                 checks: [],
+                selected: '',
+                selectedMul: [],
+                // 单选按钮：绑定值
+                picked: true,
+                radioValue: '被选中的孩子',
+                // 多选按钮：绑定值
+                toggle: true,
+                value1: '我被选中了',
+                value2: '我没有被选中哈！',
+                // 下拉框：绑定值
+                selectedValue: true,
+                optionValue: '我是个字符串，你选中了我！'
             }
         })
     </script>
