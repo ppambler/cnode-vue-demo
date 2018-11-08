@@ -11,14 +11,83 @@
 </head>
 <body>
     <div id="app">
-
+        <p>组件的template是否可以不要标签？——必须有标签</p>
+        <!-- <my-son></my-son> -->
+        <my-son1></my-son1>
+        <hr>
+        <p>注册组件的名字——多个单词必须有「-」，而不是驼峰</p>
+        <!-- <mySon2></mySon2> -->
+        <my-son2></my-son2>
+        <hr>
+        <p>为组件搞点数据？——它的data接的可不是一个hash，而是一个返回hash的函数</p>
+        <my-son3></my-son3>
+        <hr>
+        <p>解决曾经遗留的坑：</p>
+        <p>遗留的坑，长这样：</p>
+        <button @click="addOne">加1</button>——{{num}}
+        <br>
+        <br>
+        <button @click="addOne">加1</button>——{{num}}
+        <br>
+        <br>
+        <p>用组件的姿势解决这坑：</p>
+        <my-button></my-button>
+        <br>
+        <my-button></my-button>
+        <p>这解决这坑的时候，template的值只要一个根元素才行哈！</p>
     </div>
     <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
     <script>
+        // template中是否得写标签？
+        // 这样做报错哈！
+        // Vue.component('my-son',{
+        //     template:'你好'
+        // })
+        // 你得这样，**✎：**
+        Vue.component('my-son1',{
+            template: '<span>你好</span>'
+        })
+        
+        // 组件的名字命名
+        // 这种做法是不行的，因为vuejs会自动把mySon2转换为my-son2,所以你看着办吧
+        Vue.component('mySon2',{
+            template: '<span>你好</span>'
+        })
+
+        // 为组件搞点data?
+        Vue.component('my-son3',{
+            template: '<span>你好——{{msg}}</span>',
+            data: function() {
+                return {
+                    msg: '我是子组件my-son3的数据'
+                }
+            }
+        })
+
+        // 使用组件的姿势解决遗留的坑，**✎：**
+        Vue.component('my-button',{
+            template: '<div><button @click="addOne">加1</button>——{{num}}</div>',
+            data: function() {
+                return {
+                    num: 0
+                }
+            },
+            methods: {
+                addOne(){
+                    this.num++
+                }
+            }
+        })
+
         var app = new Vue({
             el: '#app',
             data: {
-                
+                num: 0
+            },
+            methods: {
+                addOne(){
+                    this.num++
+                }
             }
         })
     </script>
