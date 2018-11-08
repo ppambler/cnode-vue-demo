@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 2px solid chartreuse;
+            height: 800px;
+        }
+    </style>
+</head>
+<body>
+    <p>在父组件里，向子组件传递消息：</p>
+    <div id="app">
+        <h5 style="text-align:center">我是父组件</h5>
+        <!-- 你必须把这个msg写在子组件标签身上，这样才会说明这个内容是来自父级的！而不是
+            把它现在id为app这个元素身上，如果这样写了，那么它就是自己的一个普通属性而已
+        -->
+        <son-component msg="我是来自父组件的内容"></son-component>
+        <hr>
+        <hr>
+        <p>是用v-bind进行数据的动态绑定，把input中的msg传递给子组件</p>
+        <p>这样传给子组件的数据就是活的了！</p>
+        <input type="text" v-model="fatherMsg" name="" id="">
+        <bind-component v-bind:msg="fatherMsg"></bind-component>
+
+        <hr>
+        <hr>
+        <p>如果父级的数据是数组字面量形式的呢？</p>
+        <p>这个是没有v-bind绑定的msg：</p>
+        <son-component msg="[3,6,9]"></son-component>
+        <p>而这个则是有v-bind的msg：</p>
+        <son-component :msg="[3,6,9]"></son-component>
+        <p>vuejs会对绑定的msg进行识别，如果是符合数组字面量，那么vuejs它内部就会按数组来解析传递过来的数据哈！</p>
+        <son-component :msg="{xxx:'我是一个对象'}"></son-component>
+
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            components: {
+                'son-component': {
+                    // 用于接收父组件传过来的内容
+                    props: ['msg'],
+                    // 你可不要上面那个组件标签中添加样式哈！虽然也可以，不过这就是特有的哈！
+                    template: '<div style="border:2px solid red;height: 80px;">{{msg}}——长度——{{msg.length}}——{{msg.xxx || "不是一个hash"}}</div>',
+                    data: function() {
+                        return {
+                            // 这是自己自带的数据，而props是来自父组件的数据哈！
+                            num: 1
+                        }
+                    }
+                },
+                'bind-component': {
+                    props: ['msg'],
+                    template: '<div style="border:2px solid red;height: 80px;">{{msg}}</div>',
+                }
+            },
+            data: {
+                fatherMsg: ''
+            }
+        })
+    </script>
+</body>
+</html>
