@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 600px;
+            height: 300px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <my-component msg="我是父组件传递过来的数据"></my-component>
+        <hr>
+        <p>需求：通过input中输入的数据直接改变div的宽度</p>
+        <input type="text" v-model="width" name="" id="">
+        <width-component :width="width"></width-component>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        Vue.component('my-component', {
+            props: ['msg'],
+            template: '<div>{{count}}</div>',
+            data: function() {
+                return {
+                    // 这个count用于存储父组件传过来的数据，即把这个数据作为初始值！
+                    // 这样我们就可以在子作用域内随意使用和修改了！
+                    // 这是props的第一种应用场景：
+                    count: this.msg
+                }
+            }
+        })
+        // 这是第2种应用场景
+        // 即我们需要把来自父组件的数据通过计算属性转变成我们想要的数据格式哈！
+        // 总之加工数据成我们想要的，如加个单位之类的
+        // 而第1种应用场景则是把数据过一手就可以了，而这种则是加工数据然后再使用
+        Vue.component('width-component',{
+            props:['width'],
+            template: '<div :style="style"></div>',
+            data: function() {
+                return {
+
+                }
+            },
+            computed: {
+                style: function() {
+                    return {
+                        width: this.width + 'px',
+                        backgroundColor: 'red',
+                        height: '30px'
+                    }
+                }
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                width: 0,
+            }
+        })
+    </script>
+</body>
+</html>
