@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 渲染全局组件 -->
+        <!-- 你要知道这个组件元素会被替换成该组件定义的template的，这似乎是一种映射哈！ -->
+        <my-component></my-component>
+        <app-component></app-component>
+
+        <!-- 你会发现这个渲染出来的DOM结构中，该组件在table之外，因为这是HTML的规定，毕竟我是table -->
+        <!-- 那么就只能有tr、td、tbody、thead这些标签了 -->
+        <table>
+            <my-component></my-component>
+        </table>
+
+        <!-- 如果你非要在table中使用这些受限制的元素，那么你可以使用is特性挂载到非受限的元素身上 -->
+        <!-- 这有种披着羊皮的狼的赶脚哈! -->
+        <table>
+            <thead is="my-component"></thead>
+        </table>
+        <!-- 你会发现它就在table元素中！注意这个thead已经被替换为my-component的template内容了 -->
+    </div>
+    <hr>
+    <div id="bpp">
+        <!-- 体现我是全局组件 -->
+        <my-component></my-component>
+        <!-- 无效，报错！ -->
+        <!-- <app-component></app-component> -->
+    </div>
+    <!-- 在已被挂载的元素之外，使用组件，其实这个是自定义元素哈！ -->
+    <app-component>我</app-component>
+    <my-component>你大爷</my-component>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        // 全局注册组件
+        // arg1:组件名，arg2:一个hash
+        // 注意，组件的注册得要在Vue实例创建之前注册哈！
+        Vue.component('my-component',{
+            template:'<div>我是全局注册的组件！</div>'
+        })
+        var app = new Vue({
+            el: '#app',
+            // 局部注册——用得比较多
+            components: {
+                'app-component': {
+                    template: '<div>我是app旗下注册的组件，即我是局部的，你bpp是无法访问我的！</div>'
+                }
+            },
+            data: {
+                
+            }
+        })
+        var bpp = new Vue({
+            el: '#bpp',
+            data: {
+
+            }
+        }) 
+    </script>
+</body>
+</html>
