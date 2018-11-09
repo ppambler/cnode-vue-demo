@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 600px;
+            height: 300px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <my-acomponent ref="a"></my-acomponent>
+        <my-bcomponent ref="b"></my-bcomponent>
+        <hr>
+        <p>父链：</p>
+        <child-component ref="c"></child-component>——{{msg}}
+        <p>子链，与ref属性相关：</p>
+        <button @click="getChildData">我是父组件的按钮，我要拿到子组件的内容</button>
+        <p>ref为a：</p>
+        ——{{formChild}}
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        Vue.component('my-component', {
+            template: '<div>我是一个组件</div>',
+        })
+        Vue.component('my-acomponent',{
+            template: '<div><button @click="handle">点击我向B组件传递数据</button></div>',
+            data: function() {
+                return {
+                    aaa: '我是来自A组件的内容',
+                    msg: '我是来自A中的msg'
+                }
+            },
+            methods: {
+                handle:function() {
+                    this.$root.bus.$emit('xxx',this.aaa)
+                }
+            }
+        })
+        Vue.component('my-bcomponent',{
+            template: '<div></div>',
+            created: function() {
+                this.$root.bus.$on('xxx',function(value) {
+                    alert(value)
+                })
+            },
+            data: function() {
+                return {
+                    msg: '我是来自B中的msg'
+                }
+            }
+        })
+        
+        Vue.component('child-component',{
+            template: '<button @click="setFatherData">通过点击我修改爸爸的数据</button>',
+            methods: {
+                setFatherData:function(){
+                    this.$parent.msg = '数据已经修改了！'
+                }
+            },
+            data: function() {
+                return {
+                    msg: '我是来自C中的msg'
+                }
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                // bus中介
+                bus: new Vue(),
+                msg: '爸爸的数据还未修改！',
+                formChild: '还未拿到'
+            },
+            methods:{
+                getChildData() {
+                    this.formChild = this.$refs.a.msg
+                }
+            }
+        })
+    </script>
+</body>
+</html>
