@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 600px;
+            height: 300px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>爸爸给儿子的数据a只能是字符串，而b数据可以是字符串，也可以是数值：</p>
+        <type-component :a="a" :b="b" :d="d" :e="e" :g="g" :h="h" :i="i"></type-component>
+        <hr>
+        <p>验证type类型的具体来讲有6种：String、Number、Boolean、Object、Array、Function</p>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        Vue.component('my-component', {
+            template: '<div>我是一个组件</div>',
+        })
+        Vue.component('type-component',{
+            props:{
+                // 注意这是类型，所以不要加引号！
+                a: String,
+                // 数组表示你可以选择多种数据类型，即可以验证多种数据
+                b: [String,Number],
+                // 如果你想要个初始值，那么就用对象吧！这个对象还有个required选项
+                // 这个c默认就会在子组件中显示，即便父组件没有传数据过来，即非必传
+                // 有种兜底的值的赶脚！
+                c: {
+                    type: Boolean,
+                    default: true
+                },
+                // 一个空字符串也是可以的哈!也木有报错
+                // 如果你改了其它的值，如一个6，一个'6',0等都会报错
+                // 如果是undefined的话，那么还是true，如果是null，则是一个空，即看不见一个字符
+                // 这似乎在告诉我，「这并不是遵循那6个falsy值哈，0、NaN、''、false、undefined、null」
+                d: {
+                    type: Boolean,
+                    default: true
+                },
+                // 父组件给了一个字符串数据过来，虽然报错了，但还是可以渲染的！
+                // 即报错是一回事，渲染又是另一回事
+                // 而传的是空字符则不会报错哈！然后渲染的则是默认值true了
+                e: {
+                    type: Boolean,
+                    default: true
+                },
+                // 测试必传项：
+                // 如果父组件不传数据过来，那么会报错「Missing required prop: "f"」
+                f: {
+                    type: Number,
+                    required: true
+                },
+                // 我想要个数组：
+                g: {
+                    type: Array,
+                    // 不能直接写个数组字面量，这可不像是Boolean等类型那样哈！
+                    // 即你不能这样：default: []
+                    // 我猜这是深拷贝和浅拷贝的锅，为此可以相互独立，互不干扰
+                    // 如果父组件没有传数据过来，即:子组件身上没有这个g="g"，那么当然就会取它的默认值哈！
+                    default: function() {
+                        return [666]
+                    }
+                },
+                // 自定义一个验证函数：
+                // 不要以为这个对象只有type、required、default这3个选项
+                // 不管你传什么，虽然会报错，但还是会渲染的哈！
+                // 这个value就是来自父组件的数据，我默认传了个8，显然这是可以验证通过不报错的
+                // 如果是大于或者等于10的，那么就会报错，虽然如此，但也不会阻止该子组件的渲染，即你传了字符串，也会渲染为字符串
+                // 这个验证器的返回值是true or false对吧！它就像在告诉我是否报错，但不阻止你渲染！
+                h: {
+                    validator: function(value) {
+                        return value<10
+                    }
+                },
+                // 关于函数
+                i: {
+                    type: Function,
+                }
+            },
+            template: `<div>我是a：{{a}}——我是b：{{b}}——我是c：{{c}}——我是d：{{d}}
+            ——我是e：{{e}}——我是f：{{f}}——我是g：{{g}}，长度为{{g.length}}——我是h：{{h}}
+            ——我是i(函数)：{{i}}
+            </div>`,
+            data: function() {
+                return {
+
+                }
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                a: '666',
+                b: 777,
+                d: '',
+                e: 'dasdad',
+                g: '',
+                h: 6,
+                i: console.log('我是i')
+            }
+        })
+    </script>
+</body>
+</html>
