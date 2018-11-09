@@ -94,7 +94,7 @@
         <p>绑定值：</p>
         <p>也是分3部分讲的——单选按钮、复选框、下拉框</p>
         <p>（1）单选按钮：</p>
-        <input type="radio" name="" id="" v-model="picked" v-bind:value="radioValue"><br>
+        <input type="radio" name="" id="" v-model="picked" :value="radioValue"><br>
         ————————————————现在挑中的是：{{picked}}
         <p>只需要用v-bind给单个单选框绑定一个value值，此时，v-mode绑定的就是它的value值</p>
         <p>也就是说v-model绑定的值初始化是布尔值，当它为true时，那么v-model的值就是v-bind所绑定的value值咯!</p>
@@ -168,6 +168,7 @@
                 // 单选按钮：绑定值
                 picked: true,
                 radioValue: '被选中的孩子',
+                radioValue2: '未被选中的孩子',
                 // 多选按钮：绑定值
                 toggle: true,
                 value1: '我被选中了',

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 600px;
+            height: 600px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>需求：通过加号按钮和减号按钮来给父组件传递数据</p>
+        <p>您现在的银行卡余额是{{total}}</p>
+        <!-- <son-component @change="handleTotal"></son-component> -->
+        <son-component v-model="total"></son-component>
+        <hr>
+        <p>为什么这样也可以呢？</p>
+        <p>回顾input和v-model的那些事儿：</p>
+        <input type="text" v-model="msg">
+        <br>
+        <p>你输入什么我就渲染什么：{{msg}}</p>
+        <p>你要知道v-model是个语法糖哈！它的庐山真面目做了两件事哈：</p>
+        <ul>
+            <li>v-bind 绑定一个value属性</li>
+            <li>v-on 指令给当前元素绑定 input事件</li>
+        </ul>
+        <!-- <input :value="msg" @input="msg = $event.target.value"> -->
+        <p>当你点击+1的时候，触发了点击事件，更新了子组件的数据，接着触发input事件，我没有搞清楚这个$event.target.value是怎么一回事</p>
+        <p>按照我的猜测就是这个值是来自子组件传过来的数据，我们把这个数据给了total，即父组件的total也发生了变化，这样页面上的total就重新渲染了哈！</p>
+        <p>我测试了一下，可以把@input的值看作是绑定了一个方法，然后可以把加1当作是我们在input框里输入东西</p>
+        <p>感觉很乱啊！为什么我们的@change所绑定的handleTotal函数咩有带括号哈！你不带括号的话，那么传入的就是event对象了啊！</p>
+        <p>我为此添加了括号，结果竟然无效果，然后我就加了个$event既然就可以了！</p>
+        <hr>
+        <p>如果按照我的猜测没错的话，那么这个msg=$event.target.value，其实可以写在一个方法里面</p>
+        <input type="text" :value="msg2" @input="handle">
+        <son-component :value="msg2" @input="handle($event)"></son-component>
+        <br>
+        {{msg2}}
+    </div>
+    
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        Vue.component('son-component', {
+            template:`<div>
+                        <button @click="handleIncrease">+1</button>
+                     </div>`,
+            data: function() {
+                return {
+                    count: 2000
+                }
+            },
+            methods: {
+                // 我们自定义了一个change事件，然后借助点击事件之手，来触发我们这个change事件
+                // 这真得是好功夫啊！
+                handleIncrease() {
+                    this.count = this.count + 1000
+                    // 可以写多个参数，即可以传多个数据给父组件哈！
+                    // this.$emit('change',this.count)
+                    this.$emit('input',this.count)
+                },
+            }
+                      
+        })
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                total: 2000,
+                msg: '占个坑',
+                msg2: '测试一个坑'
+            },
+            methods: {
+                // 这个total形参用于接收来自子组件中emit的第二个参数！
+                // handleTotal(total) {
+                //     this.total = total
+                // }
+                handle(e) {
+                    this.msg2 = e
+                }
+            }
+        })
+    </script>
+</body>
+</html>

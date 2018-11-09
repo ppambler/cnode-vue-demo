@@ -8,15 +8,33 @@
     <body>
         <div id="app4">
             {{price}}<br>
-            <input v-model="price">
+            <!-- <input v-model="price"> -->
             <!-- 下行注释的语法糖 -->
-            <!-- <input :value="price" @input="price = $event.target.value"> -->
+            <input :value="price" @input="price = $event.target.value">
+            <input type="text" :value="xxx" @input="handle">
+            {{xxx}}
+            <hr>
+            <input type="text" :value="zzz" @input="handle1(666,$event)">
+            {{zzz}}
         </div>
         <script>
             new Vue({
                 el: '#app4',
                 data: {
-                    price: '20'
+                    price: '20',
+                    xxx: '默认值',
+                    zzz: ''
+                },
+                methods: {
+                    handle(event) {
+                        console.log(event)
+                        this.xxx = event.target.value
+                    },
+                    handle1(event,zz) {
+                        console.log(event)
+                        console.log(zz)
+                        this.zzz = zz.target.value
+                    }
                 }
             });
         </script>

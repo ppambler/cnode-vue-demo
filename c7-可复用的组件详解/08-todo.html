@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- 添加任务部分开始 -->
+    <section id="add-work">
+        <h3>增加新任务</h3>
+        <input type="text" placeholder="例如:下午三点召开工作会议 ;" v-on:keyup.enter="addThingEnter">
+        <a href="#" v-on:click="addThingClick">立即添加</a>
+    </section>
+    <!-- 添加任务结束 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#add-work",
+            data: {
+                info: ''
+            },
+            methods: {
+                addThingEnter(event) {
+                    console.log(event)
+                    console.log(event.target.value)
+
+                },
+                addThingClick() {
+
+                    console.log(this.$el.querySelector("input").value)
+
+                }
+
+            }
+
+        });
+    </script>
+</body>
+
+</html>
