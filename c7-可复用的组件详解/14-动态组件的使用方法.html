@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 600px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding-bottom: 100px;
+        }
+        /* 一个新的知识点 */
+        hr {
+            border: 3px solid red;
+        }
+        /* 知识点细分一级 */
+        hr[b-o] {
+            border: 2px solid orange;
+        }
+        /* 知识点再细分一级 */
+        hr[b-y] {
+            border: 1px solid yellow;
+        }
+        /* 知识点的颜色： */
+        p[c-r] {
+            color: #da2222;
+        }
+        p[c-o] {
+            color: #f58827;
+        }
+        p[c-g] {
+            color: #07da06;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>需求：通过点击不同的按钮切换不同的视图</p>
+        <!-- 别忘了这是is是有冒号的哈！！ -->
+        <component :is="thisView"></component>
+        <button @click="handleView('A')">第1句</button>
+        <button @click="handleView('B')">第2句</button>
+        <button @click="handleView('C')">第3句</button>
+        <button @click="handleView('D')">第4句</button>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        Vue.component('my-component', {
+            template: '<div>我是一个组件</div>',
+        })
+        Vue.component('compA',{
+            template: '<div>离离原上草</div>'
+        })
+        Vue.component('compB',{
+            template: '<div>一岁一枯荣</div>'
+        })
+        Vue.component('compC',{
+            template: '<div>野火烧不尽</div>'
+        })
+        Vue.component('compD',{
+            template: '<div>春风吹又生</div>'
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                // 默认视图：
+                thisView: 'compA'
+            },
+            methods: {
+                handleView: function (tag) {
+                    this.thisView = `comp${tag}`
+                }
+            }
+        })
+    </script>
+</body>
+</html>
