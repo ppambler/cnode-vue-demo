@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>父子通信</title>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 600px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding-bottom: 100px;
+        }
+
+        /* 一个新的知识点 */
+        hr {
+            border: 3px solid red;
+        }
+
+        /* 知识点细分一级 */
+        hr[b-o] {
+            border: 2px solid orange;
+        }
+
+        /* 知识点再细分一级 */
+        hr[b-y] {
+            border: 1px solid yellow;
+        }
+
+        /* 知识点的颜色： */
+        p[c-r] {
+            color: #da2222;
+        }
+
+        p[c-o] {
+            color: #f58827;
+        }
+
+        p[c-g] {
+            color: #07da06;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <my-xxx msg="儿子，爸爸给你零花钱了，省着点花！" v-model="sonMsg"></my-xxx>
+        {{sonMsg}}
+        <br>
+        <my-zzz></my-zzz>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('my-xxx', {
+            props: ['msg'],
+            data: function() {
+                return {
+                    sonMsg: '我会的，谢谢爸爸！',
+                    formBrotherSay: '……'
+                }
+            },
+            template: `<div>
+                {{msg}}
+                <button @click="sonSay">点击我，看看儿子对爸爸说了啥？</button>
+                <p>哥哥说：{{formBrotherSay}}</p>
+            </div>`,
+            methods: {
+                sonSay() {
+                    this.$emit('input',this.sonMsg)
+                }
+            },
+            created: function() {
+                // 主要这里用个箭头函数哈！用于指定其中的this为当前组件！而不是父组件
+                this.$root.bus.$on('zzz',(value) => {
+                    console.log(value)
+                    console.log(this.formBrotherSay)
+                    this.formBrotherSay = value
+                    console.log(this.formBrotherSay)
+                    // alert(value)
+                })
+            }
+
+        })
+        Vue.component('my-zzz', {
+            data: function() {
+                return {
+                    brotherSay: '弟弟你要是不够用的话，哥哥这还有……'
+                }
+            },
+            template: `<div>
+                <button @click="brotherSayWhat">点击我，看看哥哥给弟弟说了啥？</button>
+            </div>`,
+            methods: {
+                brotherSayWhat() {
+                    this.$root.bus.$emit('zzz',this.brotherSay)
+                }
+            }
+
+        })
+
+       var app = new Vue({
+            el: '#app',
+            data: {
+                sonMsg: '',
+                bus: new Vue()
+            },
+            components: {
+                'my-yyy': {
+                    template: '<div>我是局部注册的组件哈！</div>'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
