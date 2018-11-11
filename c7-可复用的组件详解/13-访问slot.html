@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 600px;
+            /* height: 700px; */
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding-bottom: 100px;
+        }
+        hr {
+            border: 3px solid red;
+        }
+        hr[b-o] {
+            border: 2px solid orange;
+        }
+        hr[b-y] {
+            border: 1px solid yellow;
+        }
+         /* 知识点的颜色： */
+         p[c-r] {
+            color: #da2222;
+        }
+        p[c-o] {
+            color: #f58827;
+        }
+        p[c-g] {
+            color: #07da06;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 这样做是无法显示msg的，如果你想要显示就得使用vuejs提供的slot，为此这样看起来就像是一个可以正常嵌套的元素了啊！ -->
+        <!-- 别忘了这个子组件是其template的映射哈！一个替换，该子组件标签的儿子通通GG -->
+        <p>没有使用插槽，你在子组件中嵌套的内容，根本无法显示哈！</p>
+        <my-component>{{msg}}</my-component>
+        <hr>
+        <p c-r>使用单个插槽：</p>
+        <hr b-o>
+        <p>不插入内容：</p>
+        <single-slot></single-slot>
+        <hr b-y>
+        <p>插入内容：</p>
+        <single-slot>我是父组件插入的内容，你能看见我吗？</single-slot>
+        <hr b-y>
+        <p>所以slot的功能是：混合父组件的内容与子组件自己的模板，从而弥补了视图的不足</p>
+        <p>还有一点就是slot标签可不会存在DOM结构中，slot标签只是存粹的留个记号而已！
+            告诉你在哪儿插入罢了！如果不插入的话那就去掉slot把模板渲染出来就好了！</p>
+        <hr b-o>
+        <!-- <hr> -->
+        <p c-r>使用具名插槽：</p>
+        <hr b-o>
+        <p>使用场景：</p>
+        <name-component>
+            <h3 slot="header"><span>我是标题</span></h3>
+            <p>我是正文内容</p>
+            <!-- 这个将不会被渲染，毕竟没有slot为xxx的插槽哈！不要想了，默认的slot也不会给你插！这样三心二意好吗？真以为备胎就没有脾气的？ -->
+            <p slot="xxx">正文内容有2段</p>
+            <p slot="footer">我是底部信息</p>
+        </name-component>
+        <hr b-y>
+        <p>当我们使用了具名插槽，你会发现我们只需要一个组件，把我们自定义的内容插入该子组件模板即可</p>
+        <p>总之，只需要传内容到对应的插槽即可！这样我们就不需要关心视图的东西了！即视图不变数据变！</p>
+        <p>对了，如果写了slot属性，但是没有在该子组件中的template中找到相应的具名插槽，那么该元素将不会渲染！</p>
+    </div>
+    
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        Vue.component('my-component', {
+            template: '<div>我是一个组件</div>',
+        })
+        Vue.component('single-slot',{
+            template: '<div><slot>如果父组件没有插入内容，那么我就作为默认内容出现！</slot></div>'
+        })
+        Vue.component('name-component',{
+            template:`
+                <div>
+                    <div class="header">
+                        <slot name="header"></slot>
+                    </div>
+                    <div class="container">
+                        <slot></slot>
+                    </div>
+                    <div class="footer">
+                        <slot name="footer"></slot>
+                    </div>
+                </div>
+            `,
+            // 访问插槽：
+            mounted: function() {
+                var header = this.$slots.header
+                var text = header[0].elm.innerText
+                var html = header[0].elm.innerHTML
+                console.log(header)
+                // log出拿到插槽的内容！这个可是父组件已经插入的内容了！毕竟这是个mounted
+                // mounted：el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。
+                console.log(text)
+                console.log(html)
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: '我是父组件的内容！'
+            }
+        })
+    </script>
+</body>
+</html>
