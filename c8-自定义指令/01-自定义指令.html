@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 600px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding-bottom: 100px;
+        }
+        /* 一个新的知识点 */
+        hr {
+            border: 3px solid red;
+        }
+        /* 知识点细分一级 */
+        hr[b-o] {
+            border: 2px solid orange;
+        }
+        /* 知识点再细分一级 */
+        hr[b-y] {
+            border: 1px solid yellow;
+        }
+        /* 知识点的颜色： */
+        p[c-r] {
+            color: #da2222;
+        }
+        p[c-o] {
+            color: #f58827;
+        }
+        p[c-g] {
+            color: #07da06;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p c-r>需求：打开页面就获取焦点</p>
+        <input type="text" v-focus>
+        <p c-r>普通情况，没有我们自定义的focus指令：</p>
+        <input type="text" name="" id="">
+        <p>如果重复写了这个指令，那么后面的会接着取代前面的哈！毕竟我们并不能同时聚焦两个输入框哈！</p>
+        <input type="text" name="" id="" v-focus>
+        <hr b-o>
+        <p c-r>测试钩子函数的binding参数：</p>
+        <div v-cuihua:goudan.a.b.c="yyy">我是个被绑定了cuihua指令的元素，用于测试bind钩子函数和binding参数</div>
+        <p>这个yyy就是我们指令所绑定的表达式，它可以是个变量，也可以直接是个1+1，总之就是一个绑定值的字符串形式，
+            与value的区别在于，value是指令所绑定的最终值，而expression拿到的则是未经计算处理的值！</p>
+        <hr b-y>
+        <p c-r>ps：</p>
+        <p>使用xmp标签显示这个demo确实方便很多，不过在HTML5规范内，该元素已经完全被移除。为此推荐使用的是pre或者是code……下面这个就是用了xmp标签显示的哈</p>
+        <p><xmp  v-html="zzz"></xmp></p>
+        <p>我为xmp标签绑定了一个v-html指令，name为html，expression是zzz，value是你现在看到这段demo。
+            我在想真得是这段demo吗？会不会继续计算啊？我测试了一下，把yyy改为'1+1',显然没有计算哈，不过我这个是字符串哈！
+            如果改为1+1是会计算的！所以这段demo如果可以被解析那应该是可以被解析的！因为v-html和v-text似乎就是这样的调调哈！
+        </p>
+        <hr b-o>
+        <p c-r>测试钩子函数的vnode参数：</p>
+        <div v-vnode></div>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        Vue.component('my-component', {
+            template: '<div>我是一个组件</div>',
+        })
+        Vue.directive('focus', {
+            // 指令的选项
+            // 父节点存在即可调用！总之插入到父节点的时候就调用
+            // 第一个参数el：可以让我们得到指令所绑定的元素，为此我们可以直接操作DOM了！
+            inserted: function(xx) {
+                xx.focus()
+                console.log(xx)
+            }
+        })
+        // 测试binding参数
+        Vue.directive('cuihua',{
+            // 只调用一次，指令第一次绑定到元素时调用！这个先于inserted执行
+            bind: function(el,binding) {
+                el.innerHTML = `
+                <code>&lt;div v-cuihua:goudan.a.b.c="yyy">&lt;/div></code> <br>
+                name：${binding.name}<br>
+                value：${binding.value}<br>
+                expression：${binding.expression}<br>
+                argument：${binding.arg}<br>
+                modifiers：${JSON.stringify(binding.modifiers)}<br>
+                `
+                console.log(binding)
+            }
+        })
+        Vue.directive('vnode',{
+            // 我还以为可以跳过一个参数赋值呢！没想到这是规定死的，确实这只是个形式参数，我以为这个形式参数名可以用es6的语法直接解析赋值的！
+            
+            bind: function(el,xxx,vnode) {
+                var keys = []
+                for(var key in vnode) {
+                    keys.push(key)
+                }
+                console.log(vnode)
+                el.innerHTML = `
+                    vnode中的keys：${keys.join("--")}
+                `
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                xxx: '我是value哈！',
+                yyy: '我是自定义指令所绑定的值',
+                zzz: '<div v-cuihua:goudan.a.b.c="yyy"></div>'
+            }
+        })
+    </script>
+</body>
+</html>
