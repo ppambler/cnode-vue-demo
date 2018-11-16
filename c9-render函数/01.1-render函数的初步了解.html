@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 600px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding-bottom: 100px;
+        }
+
+        /* 一个新的知识点 */
+        hr {
+            border: 3px solid red;
+        }
+
+        /* 知识点细分一级 */
+        hr[b-o] {
+            border: 2px solid orange;
+        }
+
+        /* 知识点再细分一级 */
+        hr[b-y] {
+            border: 1px solid yellow;
+        }
+
+        /* 知识点的颜色： */
+        p[c-r] {
+            color: #da2222;
+        }
+
+        p[c-o] {
+            color: #f58827;
+        }
+
+        p[c-g] {
+            color: #07da06;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <my-component :level="level">
+            我是蜡笔小新
+        </my-component>
+        <p>你会发现之前template选项能做的，我们render函数也能做哈！</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 没有了所谓
+        Vue.component('my-component', {
+            // template: '<div><slot><slot></div>',
+            // 这个creatElement函数是vuejs内部的提供的函数
+            // 总之相比template节省了许多demo，而且还不仅如此，如页面性能不知提高了多少倍等等
+            render: function(createElement) {
+                return createElement('h'+this.level,
+                    this.$slots.default
+                )
+            },
+            props:['level']
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                level: 2
+            }
+        })
+        let x = setInterval(()=>{
+            if(app.level < 3) {
+                app.level++
+            } else {
+                app.level = 1
+                clearInterval(x)
+            }
+        },1000)
+    </script>
+</body>
+
+</html>

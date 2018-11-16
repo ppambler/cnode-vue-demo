@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 600px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding-bottom: 100px;
+        }
+
+        /* 一个新的知识点 */
+        hr {
+            border: 3px solid red;
+        }
+
+        /* 知识点细分一级 */
+        hr[b-o] {
+            border: 2px solid orange;
+        }
+
+        /* 知识点再细分一级 */
+        hr[b-y] {
+            border: 1px solid yellow;
+        }
+
+        /* 知识点的颜色： */
+        p[c-r] {
+            color: #da2222;
+        }
+
+        p[c-o] {
+            color: #f58827;
+        }
+
+        p[c-g] {
+            color: #07da06;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h-component :level="level">
+            我是蜡笔小新
+        </h-component>
+        <x-component :level="level">
+            我是告知你为啥需要render函数的！你查看我的DOM结构你会发现我有注释哈！而上面那个则没有！
+            <br>这是为什么呢？你看看我们之前的模板有何不同就知道了！
+            <br>可见我只有v-if指令哈！即我会渲染3次然后只报留满足条件的那次，其余的则会被移除！移除的痕迹即是那个注释！
+            <br>还有就是平时如果我们把很长的HTML写到组件的template选项中的话，我会显得代码很长，所以render函数的存在就不必要了！
+        </x-component>
+    </div>
+    <template id="hdom">
+        <!-- 我没有添加一个根元素div也是可行的，这并没有报错哈！只是在h标签在变化的时候，其爸爸div也在变化 -->
+        <!-- 如果不加这个根元素的话，就会是div#app在变化了！ -->
+        <div>
+            <h1 v-if="level==1">
+                <slot>
+                </slot>
+            </h1>
+            <h2 v-else-if="level==2">
+                <slot>
+                </slot>
+            </h2>
+            <h3 v-else="level==3">
+                <slot>
+                </slot>
+            </h3>
+        </div>
+    </template>
+    <template id="xdom">
+        <div>
+            <h1 v-if="level==1">
+                <slot>
+                </slot>
+            </h1>
+            <h2 v-if="level==2">
+                <slot>
+                </slot>
+            </h2>
+            <h3 v-if="level==3">
+                <slot>
+                </slot>
+            </h3>
+        </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 需求：父组件传数据给子组件，如传给1~6什么的，就会被h1包裹住！
+        Vue.component('h-component', {
+            props: ['level'],
+            template: '#hdom',
+        })
+        Vue.component('x-component', {
+            props: ['level'],
+            template: '#xdom',
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                level: 2
+            }
+        })
+        // let x = setInterval(()=>{
+        //     if(app.level < 3) {
+        //         app.level++
+        //     } else {
+        //         app.level = 1
+        //         // clearInterval(x)
+        //     }
+        // },1000)
+    </script>
+</body>
+
+</html>
