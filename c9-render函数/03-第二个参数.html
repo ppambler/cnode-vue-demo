@@ -50,7 +50,7 @@
         Vue.component('my-component', {
             props:[],
             render: function(createElement) {
-                // 第二个参数是可选的，而且只能是Object，既然是hash，那么就会有选项吧！
+                // 第二个参数是可选的，不然之前的早就报错了哈！，而且只能是Object，既然是hash，那么就会有选项吧！
                 // 以下测试的内容，都是几种比较常见的选项，如样式、html属性、原生DOM属性……日常中这几个已经够用了哈！
                 return createElement({
                     template: '<div>我是用于测试createElement第二个参数的内容</div>'
