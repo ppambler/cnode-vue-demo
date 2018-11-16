@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 600px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding-bottom: 100px;
+        }
+        /* 一个新的知识点 */
+        hr {
+            border: 3px solid red;
+        }
+        /* 知识点细分一级 */
+        hr[b-o] {
+            border: 2px solid orange;
+        }
+        /* 知识点再细分一级 */
+        hr[b-y] {
+            border: 1px solid yellow;
+        }
+        /* 知识点的颜色： */
+        p[c-r] {
+            color: #da2222;
+        }
+        p[c-o] {
+            color: #f58827;
+        }
+        p[c-g] {
+            color: #07da06;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <my-component>
+            <p>锄禾日当午</p>
+            <p>汗滴禾下土</p>
+            <p>谁知盘中餐</p>
+            <p>粒粒皆辛苦</p>
+            <h3 slot="header">锄禾</h3>
+            <h5 slot="author">李绅</h5>
+        </my-component>
+        <p>
+            createElement 到底会返回什么呢？其实不是一个实际的 DOM 元素。<br>
+            它更准确的名字可能是 createNodeDescription，因为它所包含的信息会告诉 Vue 页面上需要渲染什么样的节点，及其子节点。
+            我们把这样的节点描述为“虚拟节点 (Virtual Node)”，也常简写它为“VNode”。<br>
+            “虚拟 DOM”是我们对由 Vue 组件树建立起来的整个 VNode 树的称呼。<br>
+        </p>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        Vue.component('my-component', {
+            props:[],
+            render: function(createElement) {
+                // 我重新理解了插槽，把该组件标签里的内容当作是插槽哈！
+                // debugger一下，测试这个header是不是一个数组哈！
+                // debugger
+                var header = this.$slots.header
+                console.log(header)
+                var author = this.$slots.author
+                var main = this.$slots.default
+                console.log(createElement('div'))
+                // 我之前在想如何才能然author成为根元素div的字节点呢！没想到直接写就可以了！
+                return createElement('div',[
+                    createElement('header',header),
+                    author,
+                    createElement('main',main)
+                ])
+                // 我们拿到了父组件作用域中的子组件标签里的内容了，通过插槽姿势即可拿到！然后拆解组合后，就render出去！
+                // 对了，你需要注意的是我们渲染出去的都是一个个虚拟节点哈!
+                // 即我们这个this.$slots.header返回的是一个含有VNODE的数组哈！
+                // 我在想为啥不header[0]?而是直接搞个数组哈！额……对了数组的存在只是为了有多个兄弟节点而已！
+                // 那么createElement返回的是什么？
+                // 返回的结果是VNode对象！总之我们可以把它叫做虚拟节点吧!还有就是createElement这个函数的叫法不太准确
+                // 其实叫createNodeDescription还差不多哈！
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: '我是app的内容'
+            }
+        })
+    </script>
+</body>
+</html>
