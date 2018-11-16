@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 600px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding-bottom: 100px;
+        }
+        /* 一个新的知识点 */
+        hr {
+            border: 3px solid red;
+        }
+        /* 知识点细分一级 */
+        hr[b-o] {
+            border: 2px solid orange;
+        }
+        /* 知识点再细分一级 */
+        hr[b-y] {
+            border: 1px solid yellow;
+        }
+        /* 知识点的颜色： */
+        p[c-r] {
+            color: #da2222;
+        }
+        p[c-o] {
+            color: #f58827;
+        }
+        p[c-g] {
+            color: #07da06;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <my-component></my-component>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        Vue.component('my-component', {
+            props:[],
+            render: function(createElement) {
+                // 第二个参数是可选的，而且只能是Object，既然是hash，那么就会有选项吧！
+                // 以下测试的内容，都是几种比较常见的选项，如样式、html属性、原生DOM属性……日常中这几个已经够用了哈！
+                return createElement({
+                    template: '<div>我是用于测试createElement第二个参数的内容</div>'
+                }, {
+                    // 为这个div添加class列表哈！true则添加上，反之咩有哈！
+                    // class是关键字，所以最好加上引号，当然不加也不报错！
+                    'class': {
+                        foo: true,
+                        baz: false
+                    },
+                    style: {
+                        color: 'red',
+                        // 在vuejs中不要写-哈，用驼峰就好了！
+                        fontSize: '28px'
+                    },
+                    // 添加正常的HTML特性，如id、src等这些
+                    // 除了style、class之外的那些属性，你都可以写在attrs里边，当然还存在其它的特殊情况
+                    attrs: {
+                        id: 'xxx',
+                        title: '我是在attrs里添加的title'
+                    },
+                    domProps: {
+                        // 这个内容将会替换当前div的内容
+                        // innerHTML: '<span style="color:blue;font-size:18px">我是蓝色的！</span>'
+                    }
+                    // ……还有其它选项，就不一一介绍了！
+                })
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: '我是app的内容'
+            }
+        })
+    </script>
+</body>
+</html>
