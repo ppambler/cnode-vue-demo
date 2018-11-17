@@ -65,6 +65,7 @@
             render: function(createElement) {
                 console.log(this.$scopedSlots)
                 // 以下操作相当于<div><slot :text="text" :msg="msg"></div>
+                // 我们渲染的结果是替换<slot :text="text" :msg="msg">为{{zzz.text}} {{zzz.msg}}
                 return createElement('div',this.$scopedSlots.default({
                     text: '我是子组件传递过来的数据！',
                     msg: 'scopetext'
