@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 600px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding-bottom: 100px;
+        }
+        /* 一个新的知识点 */
+        hr {
+            border: 3px solid red;
+        }
+        /* 知识点细分一级 */
+        hr[b-o] {
+            border: 2px solid orange;
+        }
+        /* 知识点再细分一级 */
+        hr[b-y] {
+            border: 1px solid yellow;
+        }
+        /* 知识点的颜色： */
+        p[c-r] {
+            color: #da2222;
+        }
+        p[c-o] {
+            color: #f58827;
+        }
+        p[c-g] {
+            color: #07da06;
+        }
+        [v-cloak] {
+            display: none;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <my-component v-model="name"></my-component>
+        <!-- 我加了个v-cloak，不然会有闪屏哈！即会看到{{name}} -->
+        <span v-cloak>{{name}}</span>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        // 需求：组件是一个input框,我们在input框里输入什么,父作用域下的{{xxx}}就会渲染成什么，总之
+        // 这是之前的换个姿势——使用render函数
+        // 注意这是子组件传数据给父组件哈！
+        // 还有就是你要知道我们为啥要指定一个this？
+        Vue.component('my-component', {
+            props:['name'],
+            render: function(createElement) {
+                // debugger一下看看这个this是谁——当前的Vue实例
+                // debugger
+                var self = this
+                return createElement('input', {
+                    domProps: {
+                        value: self.name
+                    },
+                    on: {
+                        input: function(event) {
+                            // 这里的this呢？——Window对象哈！显然$emit这个方法，在window对象是没有的哈！
+                            debugger
+                            var a = this
+                            console.log(a.$emit) //undefined
+                            self.$emit('input',event.target.value)
+                        }
+                    }
+                })
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: '我是app的内容',
+                name: '我是默认值'
+            }
+        })
+    </script>
+</body>
+</html>
