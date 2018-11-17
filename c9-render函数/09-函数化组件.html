@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 600px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding-bottom: 100px;
+        }
+        /* 一个新的知识点 */
+        hr {
+            border: 3px solid red;
+        }
+        /* 知识点细分一级 */
+        hr[b-o] {
+            border: 2px solid orange;
+        }
+        /* 知识点再细分一级 */
+        hr[b-y] {
+            border: 1px solid yellow;
+        }
+        /* 知识点的颜色： */
+        p[c-r] {
+            color: #da2222;
+        }
+        p[c-o] {
+            color: #f58827;
+        }
+        p[c-g] {
+            color: #07da06;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <my-component value="haha">
+            <!-- 没想到你是个虚拟节点！ 这render函数你全家都是虚拟节点！突然想到我们应该是render了结果一个虚拟DOM出去-->
+            <p>我是插槽</p>
+        </my-component>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        Vue.component('my-component', {
+            props:['value'],
+            functional: true, //表示当前的组件无状态无实例（即咩有data和this）
+            render: function(createElement, context) {
+                console.log(this) //window，可见咩有this，即咩有实例
+                console.log(context.children) //等价于之前的this.$slots.default
+                return createElement('button',{
+                    attrs: {
+                        id: 'foo'
+                    },
+                    on: {
+                        click: function() {
+                            console.log('context：')
+                            console.log(context)
+                            console.log('context.parent：')
+                            console.log(context.parent)
+                            console.log(`context.parent.msg：${context.parent.msg}`)
+                            console.log(`context.props.value：${context.props.value}`)
+                            console.log(context.msg) //拿不到，可见无状态，即咩有data
+                            console.log(this) //window
+                            // context的data到底是啥啊？为啥无法拿到？这就是所谓的没有data？没有状态？
+                            console.log(context.data.attrs.xxx)
+                            console.log(context.data.attrs.id)
+                            console.log(context.data)
+                            console.log(context)
+                        }
+                    }
+                },'点击我查看context有什么东东！')
+            },
+            data: function() {
+                return {
+                    msg: '我是data',
+                    attrs: {
+                        xxx: '我是gg'
+                    }
+                }
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: '我是app的内容'
+            }
+        })
+    </script>
+</body>
+</html>
