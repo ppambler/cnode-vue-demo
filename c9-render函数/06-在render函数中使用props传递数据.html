@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 600px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding-bottom: 100px;
+        }
+        /* 一个新的知识点 */
+        hr {
+            border: 3px solid red;
+        }
+        /* 知识点细分一级 */
+        hr[b-o] {
+            border: 2px solid orange;
+        }
+        /* 知识点再细分一级 */
+        hr[b-y] {
+            border: 1px solid yellow;
+        }
+        /* 知识点的颜色： */
+        p[c-r] {
+            color: #da2222;
+        }
+        p[c-o] {
+            color: #f58827;
+        }
+        p[c-g] {
+            color: #07da06;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button @click="switchShow">点击切换美食</button>
+        {{show}}
+        <my-component :show="show"></my-component>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        // 需求：点击按钮切换美女图片！
+        Vue.component('my-component', {
+            props:['show'],
+            render: function(createElement) {
+                var imgSrc = ''
+                if(this.show) {
+                    imgSrc = './img/1.jpg'
+                } else {
+                    imgSrc = './img/2.jpg'
+                }
+                return createElement('img',{
+                    attrs: {
+                        src: imgSrc
+                    },
+                    style: {
+                        width: '600px',
+                        height: '400px'
+                    }
+                })
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: '我是app的内容',
+                show: true
+            },
+            methods: {
+                switchShow() {
+                    this.show = !this.show
+                }
+            }
+        })
+    </script>
+</body>
+</html>
