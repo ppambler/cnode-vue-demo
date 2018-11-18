@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <my-son/>
+        {{msg}}
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+    <script>
+        // 我主要是测试一下会不会出现<div id="app"><div id="app">我是my-son组件</div></div>这种情况
+        // 显然并咩有哈！总之以组件的template为准哈！
+        // 你搞成这个样子也行哈<div id="ap" gg>我是my-son组件</div>,所以挂载的是什么呢？是ap啊！
+        // 所以你最好把这个模板的根元素的id和你挂载的#app一致哈！不然就米有效果了，总之一切以template选项的为准
+        // 
+        var app = new Vue({
+            el: '#app',
+            data: {
+                mag: '我是msg'
+            },
+            components: {
+                'my-son': {
+                    template: '<div id="ap" gg>我是my-son组件</div>'
+                }
+            },
+            template: '<my-son/>'
+        })
+    </script>
+</body>
+</html>
