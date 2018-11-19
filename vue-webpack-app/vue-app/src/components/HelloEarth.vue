@@ -9,10 +9,10 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'HelloEarth',
   data () {
     return {
-      msg: 'Hello World!'
+      msg: 'Hello Earth!'
     }
   }
 }
@@ -21,6 +21,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 * {
-  color: yellow;
+  color: blue;
 }
 </style>

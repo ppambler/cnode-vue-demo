@@ -2,16 +2,17 @@
   <div id="app" gg>
     <img src="./assets/logo.png">
     <router-view></router-view>
+    <List/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import List from './components/List'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    List
   }
 }
 </script>
