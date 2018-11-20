@@ -4,6 +4,8 @@
     <h3>我是axios-app，用来发送请求，拦截响应！</h3>
     <button @click="getData">发送无参数请求</button>
     <button @click="getDataWithParams">发送带参数请求</button>
+    <button @click="postData">使用post发送请求</button>
+    <button @click="postDataNotQS">使用post发送请求不带QS插件</button>
     <ul>
       <li v-for="item in items" :key="item.id">
         {{item.title}}
@@ -21,6 +23,7 @@
 <script>
 import axios from 'axios'
 import Vue from 'vue'
+import qs from 'qs'
 // 我在想这个可以针对所有组件的vue实例吗？我是否可以理解为，由于这个是单页应用，显然全局只有一个Vue构造函数？
 // 所以其它组件也可以使用这个$http咯？还是说一个组件一个Vue构造器呢？
 Vue.prototype.$http = axios
@@ -57,7 +60,29 @@ export default {
       }).catch(function(err) {
         console.log(err)
       }) 
-    }
+    },
+    postData() {
+      // 提供的这个API不用qs也行哈！，不过用了之后，我们能在控制台看见登录的密码
+      this.$http.post('https://blog-server.hunger-valley.com/auth/login',qs.stringify({
+        username: 'ambler',
+        password: '123456'
+      })).then((res) => {
+        console.log(res)
+      }).catch(function(err) {
+        console.log(err)
+      }) 
+    },
+    postDataNotQS() {
+      // 提供的这个API不用qs也行哈！，不过用了之后，我们能在控制台看见登录的密码
+      this.$http.post('https://blog-server.hunger-valley.com/auth/login',{
+        username: 'ambler',
+        password: '123456'
+      }).then((res) => {
+        console.log(res)
+      }).catch(function(err) {
+        console.log(err)
+      }) 
+    },
   }
 }
 // 查看这个this是什么，什么鬼东西哈！
