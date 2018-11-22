@@ -3,6 +3,7 @@
         <div>我是子组件</div>
         <p>来自老爸的信：{{msg}}</p>
         <button @click="toMsgForFather">我要给老爸回个信！</button>
+        <p>这是使用vuex后，拿到的数据，即我是全局状态（/数据）：{{getMsgFromStore}}</p>
     </div>
 </template>
 
@@ -26,6 +27,11 @@ export default {
           console.log('gg')
           console.log(this)
           this.$emit('xxx',this.toMsg)
+      }
+  },
+  computed: {
+      getMsgFromStore() {
+          return this.$store.state.msg
       }
   }
 };

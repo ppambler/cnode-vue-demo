@@ -6,6 +6,7 @@
         <Son :msg="toSonMsg" @xxx="getSonMsg" />
         <div>让儿子给回个信哈！不然这钱也不知道打过去没有！</div>
         <p>信箱：{{fromSonMsg}}</p>
+        <p>这是使用vuex后，拿到的数据，即我是全局状态（/数据）：{{getVuexMsg}}</p>
     </div>
 </template>
 
@@ -27,6 +28,11 @@ export default {
         getSonMsg(value) {
             console.log(1)
             this.fromSonMsg = value
+        }
+    },
+    computed: {
+        getVuexMsg: function() {
+            return this.$store.state.msg
         }
     }
 }
