@@ -13,7 +13,8 @@ Vue.config.productionTip = false
 // 就像是router一样
 var zz = new Vuex.Store({
   state: {
-    msg: '我是一个共享数据！'
+    msg: '我是一个共享数据！',
+    num: 600
   },
   // 改变全局状态的第一种姿势——直接改变
   mutations: {
@@ -28,6 +29,9 @@ var zz = new Vuex.Store({
     },
     yyy(state) {
       state.msg = '这是在actions中异步间接改变msg状态，此技能mutations可不行哈！'
+    },
+    zzz(state) {
+      state.num = state.num - 100
     }
   },
   // 改变全局状态的另一种姿势——间接改变
@@ -41,6 +45,12 @@ var zz = new Vuex.Store({
       setTimeout(()=> {
         context.commit('yyy')
       }, 2000)
+    }
+  },
+  getters: {
+    // 很多时候我们都是用getters去拿到全局状态，而不是 this.$store.state.num
+    getNum(state) {
+      return state.num > 0 ? state.num : 0
     }
   }
 })
