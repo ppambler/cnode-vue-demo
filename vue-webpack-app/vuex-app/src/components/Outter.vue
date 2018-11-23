@@ -11,6 +11,7 @@ export default {
     name: 'Outter',
     data: function() {
         return {
+            // 没有用计算属性，导致更改了状态也不会发生变化！
             msg: this.$store.state.msg
         }
     }

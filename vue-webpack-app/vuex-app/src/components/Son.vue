@@ -4,6 +4,9 @@
         <p>来自老爸的信：{{msg}}</p>
         <button @click="toMsgForFather">我要给老爸回个信！</button>
         <p>这是使用vuex后，拿到的数据，即我是全局状态（/数据）：{{getMsgFromStore}}</p>
+        <hr>
+        <button @click="cStateWithActions">点击我使用actions间接改变全局状态！</button>
+        <button @click="cStateWithActionsAsync">点击我使用actions异步间接改变全局状态！</button>
     </div>
 </template>
 
@@ -27,6 +30,12 @@ export default {
           console.log('gg')
           console.log(this)
           this.$emit('xxx',this.toMsg)
+      },
+      cStateWithActions() {
+          this.$store.dispatch('changeState')
+      },
+      cStateWithActionsAsync() {
+          this.$store.dispatch('asyncChangeState')          
       }
   },
   computed: {
