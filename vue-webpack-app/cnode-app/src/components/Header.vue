@@ -45,7 +45,7 @@ export default {
         align-items: center;
         height: 100%;
         width: 356px;
-        margin-right: 84px;
+        margin-right: 67px;
     }
     ul > li {
         margin-bottom: 4px;

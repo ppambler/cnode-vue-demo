@@ -1,15 +1,20 @@
 <template>
   <div id="app">
     <Header />
+    <div class="main">
+      <PostList />
+    </div>
   </div>
 </template>
 
 <script>
 import Header from './components/Header'
+import PostList from './components/PostList'
 export default {
   name: 'App',
   components: {
     Header,
+    PostList,
   }
 }
 </script>
@@ -29,6 +34,10 @@ p{word-wrap:break-word}
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+body {
+  background-color: #e1e1e1;
+}        
 
 
 </style>
