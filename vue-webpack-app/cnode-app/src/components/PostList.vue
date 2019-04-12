@@ -46,7 +46,14 @@
             <span>{{post | tabFormatter}}</span>
         </span>
         <!-- 标题 -->
-        <a class="child" href="#">{{post.title}}</a>
+        <router-link :to="{
+          name:'post_content',
+          params: {
+            id: post.id
+          }
+        }">
+          <a class="child">{{post.title}}</a>
+        </router-link>
         <!-- 最后一个人回复的图片 -->
         <img class="child" src alt>
         <!-- 最终回复时间 -->
