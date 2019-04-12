@@ -3,7 +3,9 @@
     <div class="loading" v-if="isLoading">
     </div>
     <div v-else>
-
+      <div class="topic_header">
+        <div class="topic_title"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -14,7 +16,8 @@ export default {
   data() {
     return {
       isLoading:false,
-      msg: ""
+      msg: "",
+      post: {}, //代表当前文章的所有内容，所有的属性
     };
   }
 };
