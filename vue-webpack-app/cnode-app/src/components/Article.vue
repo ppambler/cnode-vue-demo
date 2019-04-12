@@ -1,12 +1,19 @@
 <template>
-  <div></div>
+  <div class="article">
+    <div class="loading" v-if="isLoading">
+    </div>
+    <div v-else>
+
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "",
+  name: "Article",
   data() {
     return {
+      isLoading:false,
       msg: ""
     };
   }
