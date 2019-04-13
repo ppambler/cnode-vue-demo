@@ -16,6 +16,24 @@
         </ul>
         <div v-html="post.content" class="topic_content"></div>
       </div>
+      <div v-if="post.reply_count > 0" id="reply">
+        <div class="topbar">{{post.reply_count}} 回复</div>
+        <div v-for="(reply,index) in post.replies" :key="reply.id" class="replySec">
+          <div class="replyUp">
+            <img :src="reply.author.avatar_url" alt="">
+            <span>{{reply.author.loginname}}</span>
+            <span>{{index+1}}楼</span>
+            <span>• {{reply.create_at | formatDate}}</span>
+            <span v-if="post.author.loginname == reply.author.loginname">作者</span>
+            <span v-if="reply.ups.length > 0">
+              ☝ {{reply.ups.length}}
+            </span>
+            <span v-else>
+            </span>
+          </div>
+          <p v-html="reply.content"></p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
