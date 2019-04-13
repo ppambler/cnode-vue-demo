@@ -10,11 +10,13 @@
 <script>
 import Header from './components/Header'
 import PostList from './components/PostList'
+import Article from './components/Article'
 export default {
   name: 'App',
   components: {
     Header,
     PostList,
+    Article,
   }
 }
 </script>
@@ -39,5 +41,9 @@ body {
   background-color: #e1e1e1;
 }        
 
+.main {
+  width:80%;
+  margin: 0 auto;
+}
 
 </style>
