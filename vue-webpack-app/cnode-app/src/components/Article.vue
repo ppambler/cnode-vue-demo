@@ -4,7 +4,15 @@
     </div>
     <div v-else>
       <div class="topic_header">
-        <div class="topic_title"></div>
+        <div class="topic_title">{{post.title}}</div>
+        <ul>
+          <!-- 可以见到有个Z，因此拿到的是UTC格式的日期字符串， -->
+          <li>•发布于：{{post.create_at | formatDate}}</li>
+          <li>• 作者：{{post.author.loginname}}</li>
+          <li>• {{post.visit_count}}多少次浏览</li>
+          <li>•来自{{post.tab | tabFormatter}}}</li>
+        </ul>
+        <div v-html="post.content" class="topic_content"></div>
       </div>
     </div>
   </div>
