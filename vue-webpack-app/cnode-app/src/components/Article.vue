@@ -87,7 +87,8 @@
     beforeMount() {
       this.isLoading = true
       this.getArticleData()
-    }
+    },
+    
   }
 </script>
 
