@@ -88,6 +88,12 @@
       this.isLoading = true
       this.getArticleData()
     },
+    // 观察当前页面的路由是否发生了变化，如果变化了，那就重新获取一下文章内容！
+    watch:{
+      '$route'(to,from){
+        this.getArticleData()
+      }
+    }
     
   }
 </script>
@@ -179,6 +185,7 @@
 
 .markdown-text img {
   width: 92% !important;
+  vertical-align: initial;
 }
 
 /* h1,h2,h3,h4,h5,h6 {
@@ -190,5 +197,6 @@
   margin-left: 44px;
   font-size: 14px;
 }
+
 
 </style>
