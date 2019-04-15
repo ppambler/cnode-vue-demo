@@ -14,7 +14,7 @@
           <li>• 最后一次编辑是 {{post.last_reply_at | formatDate}}</li>
           <li>• 来自 {{post.tab | tabFormatter}} </li>
         </ul>
-        <div v-html="post.content" class="topic_content"></div>
+        <div v-html="post.content" class="topic_content markdown-text"></div>
       </div>
       <div v-if="post.reply_count > 0" id="reply">
         <div class="topbar">{{post.reply_count}} 回复</div>
@@ -117,11 +117,11 @@
 
 #reply {
   margin-top: 15px;
+  margin-bottom: 100px;
 }
 
 #reply img {
   width: 30px;
-  height: 30px;
   position: relative;
   bottom: -9px;
 }
@@ -133,7 +133,7 @@
   text-decoration: none;
 }
 .replySec {
-  height: 80px;
+  min-height: 80px;
   border-bottom: 1px solid #e5e5e5;
   padding: 10px;
 }
@@ -181,11 +181,11 @@
   width: 92% !important;
 }
 
-h1,h2,h3,h4,h5,h6 {
+/* h1,h2,h3,h4,h5,h6 {
   margin-top: 15px;
   border-bottom: 1px solid #eee;
   padding-bottom: 10px;
-}
+} */
 #reply > .replySec > p {
   margin-left: 44px;
   font-size: 14px;

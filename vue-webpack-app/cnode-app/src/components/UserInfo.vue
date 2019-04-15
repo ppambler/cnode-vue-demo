@@ -97,7 +97,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-@import url('//at.alicdn.com/t/font_1141112_3hcyyv60t7n.css');
+@import url('//at.alicdn.com/t/font_1141112_4mtg4rpcyot.css');
 
 .userInfomation {
   background: white;
