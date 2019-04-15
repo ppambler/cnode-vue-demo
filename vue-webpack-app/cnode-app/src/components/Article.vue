@@ -40,7 +40,7 @@
             <span>• {{reply.create_at | formatDate}}</span>
             <span v-if="post.author.loginname == reply.author.loginname">作者</span>
             <span v-if="reply.ups.length > 0">
-              ☝ {{reply.ups.length}}
+              <i class="iconfont icon-zan"></i> {{reply.ups.length}}
             </span>
             <span v-else>
             </span>
@@ -96,12 +96,13 @@
 <style>
 /* 引入这个CSSs的时候记住一定要把那个默认的scoped属性给去掉*/
 @import url('../assets/markdown-github.css');
+@import url('//at.alicdn.com/t/font_1141112_4mtg4rpcyot.css');
 .topbar {
-  padding: 10px;
   background-color: #f6f6f6;
-  height: 16px;
+  height: 36px;
+  line-height: 36px;
   font-size: 12px;
-  margin-top: 10px;
+  padding-left: 10px;
 }
 
 .article {
@@ -132,8 +133,9 @@
   text-decoration: none;
 }
 .replySec {
+  height: 80px;
   border-bottom: 1px solid #e5e5e5;
-  padding: 0 10px;
+  padding: 10px;
 }
 
 .loading {
@@ -170,7 +172,7 @@
 
 .topic_content {
   border-top: 1px solid #e5e5e5;
-  padding: 0 10px;
+  padding: 10px 10px;
   /* 这个css很关键，没有这个的话，把内容表现为markdown样式的话，标题和p会挨在一起 */
   white-space: pre-wrap;
 }
@@ -184,4 +186,9 @@ h1,h2,h3,h4,h5,h6 {
   border-bottom: 1px solid #eee;
   padding-bottom: 10px;
 }
+#reply > .replySec > p {
+  margin-left: 44px;
+  font-size: 14px;
+}
+
 </style>
