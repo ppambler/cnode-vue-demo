@@ -38,7 +38,7 @@
             <span>{{item.last_reply_at | formatDate}}</span>
           </li>
         </ul>
-        <p>查看更多»</p>
+        <!-- <p>查看更多»</p> -->
       </div>
       <div class="topics">
         <p>最近参与的话题</p>
@@ -60,7 +60,7 @@
             <span>{{item.last_reply_at | formatDate}}</span>
           </li>
         </ul>
-        <p>查看更多»</p>
+        <!-- <p>查看更多»</p> -->
       </div>
     </div>
   </div>
@@ -103,31 +103,43 @@ export default {
   background: white;
   width: 75%;
   margin: 10px auto;
+  font-size: 0.9rem;
 }
 .userInfomation section {
-  padding: 12px;
+  padding: 12px 12px 0 12px;
 }
 .userInfomation img {
   width: 30px;
 }
+.userInfomation span {
+  color: #778087;
+}
+.userInfomation p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.userInfomation p:last-child {
+  color: #778087;
+} 
 .userInfomation li {
   list-style: none;
 }
 .userInfomation .replies,
 .userInfomation .topics {
-  font-size: 0.72rem;
+  font-size: 0.9rem;
   border-top: 10px #dddddd solid;
+  padding-bottom: 10px;
 }
 .userInfomation > div > p {
   padding: 12px 0 12px 12px;
   background-color: rgba(212, 205, 205, 0.17);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   margin: 0;
 }
 .userInfomation > div > ul > li {
   padding: 4px 0 4px 12px;
   white-space: nowrap;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   text-overflow: ellipsis;
   overflow: hidden;
   line-height: 30px;

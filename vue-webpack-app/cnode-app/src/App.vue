@@ -42,7 +42,7 @@ body {
 }        
 
 .main {
-  width:80%;
+  width:90%;
   margin: 0 auto;
 }
 

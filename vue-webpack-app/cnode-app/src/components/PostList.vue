@@ -105,7 +105,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .post-list {
-  width: 90%;
   margin: 0 auto;
   margin-top: 15px;
 }
