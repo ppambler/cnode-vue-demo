@@ -60,11 +60,15 @@
         <!-- 最终回复时间 -->
         <span class="child" >{{post.last_reply_at | formatDate}}</span>
       </li>
+      <li>
+        <Pagination></Pagination>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
+import Pagination from './Pagination'
 export default {
   name: "PostList",
   data() {
@@ -72,6 +76,9 @@ export default {
         isLoading: false,
         posts: []
     };
+  },
+  components: {
+    Pagination,
   },
   methods: {
     getData() {
