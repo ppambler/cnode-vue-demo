@@ -33,7 +33,7 @@
     </div>
     <!-- 主题帖子列表 -->
     <ul v-else>
-      <li v-for="post in posts" :key="post.id">
+      <li v-for="post in posts" :key="post.id" class="hover-list">
         <!-- 头像 -->
         <img class="child" :src="post.author.avatar_url" alt>
         <!-- 回复/浏览 -->
@@ -58,7 +58,7 @@
         <!-- 最后一个人回复的图片 -->
         <img class="child" src alt>
         <!-- 最终回复时间 -->
-        <span class="child" >{{post.last_reply_at | formatDate}}</span>
+        <span class="child" >{{post.last_reply_at | formatDate}}有人回复</span>
       </li>
       <li>
         <!-- 分页组件 -->
@@ -118,6 +118,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.hover-list:hover {
+  background: #f6f6f6;
+  color: #333;
+}
 .post-list {
   margin: 0 auto;
   margin-top: 15px;
@@ -168,9 +172,11 @@ export default {
     margin: 0 5px;
 }
 .child:nth-child(2) {
-    width: 50px;
+    width: 70px;
     text-align: center;
     color: #b4b4b4;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 .child:nth-child(2),.child:nth-child(3) {
     font-size: 12px;
@@ -193,6 +199,7 @@ export default {
 }
 /* 帖子分类样式-start */
 .put_good, .put_top {
+    margin-left: 5px;
     background: #80bd01;
     padding: 2px 4px;
     border-radius: 3px;
@@ -205,6 +212,7 @@ export default {
   }
 
   .topiclist-tab {
+    margin-left: 5px;
     background-color: #e5e5e5;
     color: #999;
     padding: 2px 4px;

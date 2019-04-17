@@ -24,7 +24,7 @@ export default {
 /* 样式初始化 */
 body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0} 
 a{color:#2d374b;text-decoration:none} 
-a:hover{color:#cd0200;text-decoration:underline} 
+a:hover{text-decoration:underline} 
 em{font-style:normal} 
 li{list-style:none} 
 img{border:0;vertical-align:middle} 
