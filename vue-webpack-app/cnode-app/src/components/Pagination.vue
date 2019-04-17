@@ -2,6 +2,7 @@
   <div class=".pagination">
     <button @click="changeBtn">首页</button>
     <button @click="changeBtn">上一页</button>
+    <button v-if="judge" class="pagebtn">……</button>
     <button
       v-for="btn in pagebtns"
       :key="btn"
@@ -19,12 +20,26 @@ export default {
   data() {
     return {
       pagebtns: [1, 2, 3, 4, 5, "……"],
-      currentPage: 1
+      currentPage: 1,
+      judge: false,
     };
   },
   methods: {
     changeBtn(page) {
-      if (page == "……") return;
+      // 如果用户点了最右边的「……」则什么也不做
+      // console.log(typeof page)
+      if (page == '……') {
+        return
+      }
+      // 如果用户点的是数值按钮，且大于4的话，即从开始，那么就会在左侧添加个「……」，需要注意的是用户传过来的page终究是字符串
+      // 至此我需要隐式转换一下类型！额……好像不是啊！我测试了一下，确实传的是数值
+      if (typeof +page == 'number' && page > 4) {
+        this.judge = true
+      } else if(typeof +page == 'number' && page < 5){
+        this.judge = false
+        this.pagebtns = [1, 2, 3, 4, 5, "……"]
+      }
+      
       if (typeof page != "number") {
         switch (page.target.innerText) {
           case "上一页":
