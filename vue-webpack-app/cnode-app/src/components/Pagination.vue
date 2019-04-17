@@ -23,7 +23,17 @@ export default {
   },
   methods: {
     changeBtn(page) {
+      if(page == '……') return
       this.currentPage = page
+      if(page == this.pagebtns[4]) {
+        // 顺着来
+        this.pagebtns.shift() //把第一个元素给GG了
+        this.pagebtns.splice(4,0,this.pagebtns[3]+1) //退一步，进一步
+      } else if(page == this.pagebtns[0] && page != 1) {
+        // 倒着来
+        this.pagebtns.unshift(this.pagebtns[0]-1) //如果你点的是第一个元素，那么久移除最后一个元素，并把第一个元素替换成减一的结果
+        this.pagebtns.splice(5,1) //最后一个元素可以GG了
+      }
     }
   }
 };
