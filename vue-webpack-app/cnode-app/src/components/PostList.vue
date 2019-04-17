@@ -61,7 +61,8 @@
         <span class="child" >{{post.last_reply_at | formatDate}}</span>
       </li>
       <li>
-        <Pagination></Pagination>
+        <!-- 分页组件 -->
+        <Pagination @handleList="renderList"></Pagination>
       </li>
     </ul>
   </div>
@@ -74,7 +75,8 @@ export default {
   data() {
     return {
         isLoading: false,
-        posts: []
+        posts: [],
+        postpage: 1
     };
   },
   components: {
@@ -85,7 +87,7 @@ export default {
       this.$http
         .get("https://cnodejs.org/api/v1/topics", {
            params: {
-               page: 1,
+               page: this.postpage,
                limit: '20'    
            }
         })
@@ -97,7 +99,12 @@ export default {
         }).catch((e)=> {
             console.log(e)
         }) ;
-    }
+    },
+    renderList(value){
+      this.postpage = value
+      // this.isLoading = true
+      this.getData()
+    },
   },
   beforeMount() {
     // 在数据加载成功之前显示加载动画
