@@ -33,7 +33,7 @@
     </div>
     <!-- 主题帖子列表 -->
     <ul v-else >
-      <li v-for="post in posts" :key="post.id" :class="{'click-fadeout': hasClick}" class="hover-list li-fadeout">
+      <li v-for="post in posts" :key="post.id" :class="{'click-fadeout': hasClick,'disabled':isDisabled}" class="hover-list li-fadeout">
         <!-- 头像 -->
         <router-link :to="{
           name: 'user_info',
@@ -63,7 +63,7 @@
           <a class="child">{{post.title}}</a>
         </router-link>
         <!-- 最后一个人回复的图片 -->
-        <img class="child" src alt>
+        <!-- <img class="child" src alt> -->
         <!-- 最终回复时间 -->
         <span class="child" >{{post.last_reply_at | formatDate}}有人回复</span>
       </li>
@@ -84,7 +84,8 @@ export default {
         isLoading: false,
         posts: [],
         postpage: 1,
-        hasClick: false
+        hasClick: false,
+        isDisabled: false,
     };
   },
   components: {
@@ -105,6 +106,7 @@ export default {
             console.log(res)
             this.posts = res.data.data
             this.hasClick = false
+            this.isDisabled = false
         }).catch((e)=> {
             console.log(e)
         }) ;
@@ -112,7 +114,7 @@ export default {
     renderList(value,isFade){
       this.postpage = value
       this.hasClick = isFade
-      // this.isLoading = true
+      this.isDisabled = isFade
       this.getData()
     },
   },
@@ -137,8 +139,13 @@ export default {
 }
 
 .li-fadeout{visibility:visible; opacity:1;}
-.click-fadeout.li-fadeout{ visibility:hidden; opacity:0;}
-
+.click-fadeout.li-fadeout {
+  opacity:0.3;
+}
+.click-fadeout.disabled {
+  pointer-events: none;
+  cursor: default;
+}
 
 .post-list {
   margin: 0 auto;
