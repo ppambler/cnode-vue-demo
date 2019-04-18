@@ -32,10 +32,17 @@
       <div class="dot"></div>
     </div>
     <!-- 主题帖子列表 -->
-    <ul v-else>
-      <li v-for="post in posts" :key="post.id" class="hover-list">
+    <ul v-else >
+      <li v-for="post in posts" :key="post.id" :class="{'click-fadeout': hasClick}" class="hover-list li-fadeout">
         <!-- 头像 -->
-        <img class="child" :src="post.author.avatar_url" alt>
+        <router-link :to="{
+          name: 'user_info',
+          params: {
+            name: post.author.loginname
+          }
+        }">
+        <img class="child" :src="post.author.avatar_url" :title="post.author.loginname">
+        </router-link>
         <!-- 回复/浏览 -->
         <span class="child">
           <span>{{post.reply_count}}</span><span>/{{post.visit_count}}</span>
@@ -76,7 +83,8 @@ export default {
     return {
         isLoading: false,
         posts: [],
-        postpage: 1
+        postpage: 1,
+        hasClick: false
     };
   },
   components: {
@@ -96,12 +104,14 @@ export default {
             this.isLoading = false
             console.log(res)
             this.posts = res.data.data
+            this.hasClick = false
         }).catch((e)=> {
             console.log(e)
         }) ;
     },
-    renderList(value){
+    renderList(value,isFade){
       this.postpage = value
+      this.hasClick = isFade
       // this.isLoading = true
       this.getData()
     },
@@ -122,6 +132,14 @@ export default {
   background: #f6f6f6;
   color: #333;
 }
+.trans-fadeout{
+   transition:all 0.5s linear;
+}
+
+.li-fadeout{visibility:visible; opacity:1;}
+.click-fadeout.li-fadeout{ visibility:hidden; opacity:0;}
+
+
 .post-list {
   margin: 0 auto;
   margin-top: 15px;

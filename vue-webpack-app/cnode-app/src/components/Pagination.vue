@@ -71,7 +71,7 @@ export default {
         this.pagebtns.unshift(this.pagebtns[0] - 1); //如果你点的是第一个元素，那么久移除最后一个元素，并把第一个元素替换成减一的结果
         this.pagebtns.splice(5, 1); //最后一个元素可以GG了
       }
-      this.$emit('handleList',this.currentPage)
+      this.$emit('handleList',this.currentPage,true)
     }
   }
 };
