@@ -1,9 +1,9 @@
 <template>
   <div class="article">
     <div class="loading" v-if="isLoading">
-      <img src="../assets/loading.gif">
+      <i class="iconfont icon-Loading"></i>
     </div>
-    <div v-else>
+    <div v-else :class="{'art-fadeout': hasClick,'art-disabled':isDisabled}" class="art-topic-fadeout art-trans-fadeout">
       <div class="topic_header">
         <div class="topic_title">{{post.title}}</div>
         <ul>
@@ -61,7 +61,9 @@
         // 代表当前文章页的所有内容，所有属性
         post: {
 
-        }
+        },
+        hasClick: false,
+        isDisabled: false,
       }
     },
     methods: {
@@ -77,6 +79,8 @@
               res.data.data.content = res.data.data.content.replace(/&lt;br \/&gt;/g, '<br/>')
               console.log(res)
               this.post = res.data.data
+              this.hasClick = false
+              this.isDisabled = false
             }
           })
           .catch(err => {
@@ -91,6 +95,8 @@
     // 观察当前页面的路由是否发生了变化，如果变化了，那就重新获取一下文章内容！
     watch:{
       '$route'(to,from){
+        this.hasClick = true
+        this.isDisabled = true
         this.getArticleData()
       }
     }
@@ -102,7 +108,48 @@
 <style>
 /* 引入这个CSSs的时候记住一定要把那个默认的scoped属性给去掉*/
 @import url('../assets/markdown-github.css');
-@import url('//at.alicdn.com/t/font_1141112_4mtg4rpcyot.css');
+@import url('//at.alicdn.com/t/font_1141112_09qz5ue8hh6c.css');
+
+/* iconfont loading start*/
+.loading {
+  padding: 5px;
+  text-align: center;
+}
+
+.loading .iconfont {
+  font-size: 36px;
+  display: inline-block;
+  animation: 1s rotate linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* iconfont loading end */
+
+/* 遮罩层-start */
+
+.art-trans-fadeout{
+   transition:all 0.5s linear;
+}
+
+.art-fadeout{visibility:visible; opacity:1;}
+.art-fadeout.art-topic-fadeout {
+  opacity:0.3;
+}
+.art-fadeout.art-disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+/* 遮罩层-end */
+
 .topbar {
   background-color: #f6f6f6;
   height: 36px;
@@ -184,7 +231,7 @@
 }
 
 .markdown-text img {
-  width: 92% !important;
+  /* width: 92% !important; */
   vertical-align: initial;
 }
 

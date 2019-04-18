@@ -1,7 +1,7 @@
 <template>
   <div class="authorinfo">
     <div class="loading" v-if="isLoading">
-      <img src="../assets/loading.gif">
+      <i class="iconfont icon-Loading"></i>
     </div>
     <div class="authorsummay" v-else>
       <div class="topbar">作者</div>

@@ -33,7 +33,7 @@
     </div>
     <!-- 主题帖子列表 -->
     <ul v-else >
-      <li v-for="post in posts" :key="post.id" :class="{'click-fadeout': hasClick,'disabled':isDisabled}" class="hover-list li-fadeout">
+      <li v-for="post in posts" :key="post.id" :class="{'click-fadeout': hasClick,'disabled':isDisabled}" class="hover-list li-fadeout trans-fadeout">
         <!-- 头像 -->
         <router-link :to="{
           name: 'user_info',
@@ -63,7 +63,7 @@
           <a class="child">{{post.title}}</a>
         </router-link>
         <!-- 最后一个人回复的图片 -->
-        <!-- <img class="child" src alt> -->
+        <img class="child" src alt>
         <!-- 最终回复时间 -->
         <span class="child" >{{post.last_reply_at | formatDate}}有人回复</span>
       </li>

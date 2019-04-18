@@ -1,7 +1,7 @@
 <template>
   <div class="UserInfo">
     <div class="loading" v-if="isLoading">
-      <img src="../assets/loading.gif">
+      <i class="iconfont icon-Loading"></i>
     </div>
     <div class="userInfomation" v-else>
       <section>
@@ -97,7 +97,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-@import url('//at.alicdn.com/t/font_1141112_4mtg4rpcyot.css');
+@import url('//at.alicdn.com/t/font_1141112_09qz5ue8hh6c.css');
 
 .userInfomation {
   background: white;
