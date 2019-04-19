@@ -25,7 +25,13 @@ export default {
     return {
       msg: ''
     }
-  }
+  },
+//   methods: {
+//       backIndex() {
+//           alert(1)
+//           window.location.hash = "?page=1"
+//       }
+//   }
 }
 </script>
 

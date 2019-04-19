@@ -17,10 +17,11 @@
 import $ from 'jquery'
 export default {
   name: "Pagination",
+  props: ['msg'],
   data() {
     return {
       pagebtns: [1, 2, 3, 4, 5, "……"],
-      currentPage: 1,
+      currentPage: this.msg || 1,
       judge: false,
     };
   },

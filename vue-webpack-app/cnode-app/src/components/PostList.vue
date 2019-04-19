@@ -3,23 +3,24 @@
     <!-- 帖子导航栏 -->
     <div class="post-list-header">
       <ul>
-        <li>
-          <a href="#" class="current-tab">全部</a>
+        <!-- 当我传参数时，需要拿到事件对象 -->
+        <li class="current-tab all" @click="switchTab('all',$event)">
+          全部
         </li>
-        <li>
-          <a href="#">精华</a>
+        <li  class="good" @click="switchTab('good',$event)">
+          精华
         </li>
-        <li>
-          <a href="#">分享</a>
+        <li class="share" @click="switchTab('share',$event)"> 
+          分享
         </li>
-        <li>
-          <a href="#">问答</a>
+        <li class="ask" @click="switchTab('ask',$event)">
+          问答
         </li>
-        <li>
-          <a href="#">招聘</a>
+        <li class="job" @click="switchTab('job',$event)">
+          招聘
         </li>
-        <li>
-          <a href="#">客户端测试</a>
+        <li class="dev" @click="switchTab('dev',$event)">
+          客户端测试
         </li>
       </ul>
     </div>
@@ -69,7 +70,7 @@
       </li>
       <li>
         <!-- 分页组件 -->
-        <Pagination @handleList="renderList"></Pagination>
+        <Pagination @handleList="renderList" :msg="toMsg"></Pagination>
       </li>
     </ul>
   </div>
@@ -77,6 +78,7 @@
 
 <script>
 import Pagination from './Pagination'
+import $ from 'jquery'
 export default {
   name: "PostList",
   data() {
@@ -86,6 +88,8 @@ export default {
         postpage: 1,
         hasClick: false,
         isDisabled: false,
+        selectTab: 'all',
+        toMsg: /\d/.exec(window.location.hash) ? +(/\d/.exec(window.location.hash)) : 1
     };
   },
   components: {
@@ -96,8 +100,9 @@ export default {
       this.$http
         .get("https://cnodejs.org/api/v1/topics", {
            params: {
+               tab: this.selectTab,
                page: this.postpage,
-               limit: '20'    
+               limit: '5'    
            }
         })
         .then(res => {
@@ -115,8 +120,17 @@ export default {
       this.postpage = value
       this.hasClick = isFade
       this.isDisabled = isFade
-      window.location.hash = `?page=${value}`
+      window.location.hash = `?tab=${this.selectTab}&page=${value}`
     },
+    switchTab(tab,event) {
+      console.log(arguments)
+      console.log(event)
+      $(event.target).addClass('current-tab').siblings().removeClass('current-tab')
+      this.selectTab = tab
+      this.postpage = 1
+      window.location.hash = `?tab=${this.selectTab}&page=${this.postpage}`
+
+    }
   },
   beforeMount() {
     const _this = this
@@ -129,12 +143,24 @@ export default {
     // 在页面载入前执行这个getData方法
     console.log(window.location.hash)
     if(/\d/.exec(window.location.hash)) {
-      const page = /\d/.exec(window.location.hash)[0]
+      const page = +(/\d/.exec(window.location.hash)[0])
+      // 拿到hash的tab值，此时还未加载dom元素，所以你是找不到有含有tab这个变量值得class的！
+      const tab = /tab=(\w+)&/.exec(window.location.hash)[1]
+      // console.log(tab)
+      // console.log($)
+      // $('good').addClass('current-tab').siblings().removeClass('current-tab')
       this.postpage = page
+      this.selectTab = tab
     } else {
-      
     }
     this.getData()
+  },
+  mounted() {
+    console.log(this.selectTab)
+    // 我无法明白这个这样做为啥拿不到这个class
+    // console.log($(this.selectTab))
+    console.log(document.getElementsByClassName(this.selectTab))
+    $(document.getElementsByClassName(this.selectTab)[0]).addClass('current-tab').siblings().removeClass('current-tab')
   }
 };
 
@@ -174,22 +200,23 @@ export default {
 }
 .post-list-header > ul > li {
   margin: 0 10px;
+  cursor: pointer;
 }
-.post-list-header > ul > li a {
+.post-list-header > ul > li  {
   font-size: 14px;
   color: #80bd01;
 }
-.post-list-header > ul > li a:hover {
+.post-list-header > ul > li:hover {
   text-decoration: none;
   color: #005580;
 }
-.post-list-header a.current-tab {
+.post-list-header li.current-tab {
   background-color: #80bd01;
   color: #fff;
   padding: 3px 4px;
   border-radius: 3px;
 }
-.post-list-header a.current-tab:hover {
+.post-list-header li.current-tab:hover {
   color: #fff;
 }
 .post-list > ul li {
