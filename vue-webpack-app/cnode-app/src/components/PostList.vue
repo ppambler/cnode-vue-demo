@@ -115,13 +115,25 @@ export default {
       this.postpage = value
       this.hasClick = isFade
       this.isDisabled = isFade
-      this.getData()
+      window.location.hash = `?page=${value}`
     },
   },
   beforeMount() {
+    const _this = this
+    window.onhashchange = function() {
+      console.log(this)
+      _this.getData()
+    }
     // 在数据加载成功之前显示加载动画
     this.isLoading = true
     // 在页面载入前执行这个getData方法
+    console.log(window.location.hash)
+    if(/\d/.exec(window.location.hash)) {
+      const page = /\d/.exec(window.location.hash)[0]
+      this.postpage = page
+    } else {
+      
+    }
     this.getData()
   }
 };

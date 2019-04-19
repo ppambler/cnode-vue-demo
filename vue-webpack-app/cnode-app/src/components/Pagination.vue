@@ -73,6 +73,21 @@ export default {
       }
       this.$emit('handleList',this.currentPage,true)
     }
+  },
+  beforeMount() {
+    if(/\d/.exec(window.location.hash)) {
+      // 拿到的是是字符串所以转换一下！
+      const page = +(/\d/.exec(window.location.hash)[0])
+      console.log(typeof page)
+      this.currentPage = page
+      console.log(this)
+      if(page > 3) {
+         this.pagebtns = [page-2,page-1,page,page+1,page+2,'……']
+         this.judge = true
+      }
+    } else {
+      
+    }
   }
 };
 </script>
