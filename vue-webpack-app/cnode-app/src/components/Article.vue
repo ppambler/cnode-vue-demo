@@ -235,6 +235,10 @@
   vertical-align: initial;
 }
 
+.replySec p .markdown-text img {
+  width: auto !important;
+}
+
 /* h1,h2,h3,h4,h5,h6 {
   margin-top: 15px;
   border-bottom: 1px solid #eee;

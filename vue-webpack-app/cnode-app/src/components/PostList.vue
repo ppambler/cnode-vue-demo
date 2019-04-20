@@ -33,7 +33,7 @@
       <div class="dot"></div>
     </div>
     <!-- 主题帖子列表 -->
-    <ul v-else >
+    <ul v-else :class="{'click-fadeout': hasClick,'disabled':isDisabled}">
       <li v-for="post in posts" :key="post.id" :class="{'click-fadeout': hasClick,'disabled':isDisabled}" class="hover-list li-fadeout trans-fadeout">
         <!-- 头像 -->
         <router-link :to="{

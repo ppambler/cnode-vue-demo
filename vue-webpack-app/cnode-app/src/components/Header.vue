@@ -28,7 +28,7 @@ export default {
   },
   methods: {
      undo() {
-         alert('不用点了，该链接是不会回应你的行为的！')
+         alert('待完成的任务：新手入门、API、关于、注册、登录等……')
      }
   }
 }
