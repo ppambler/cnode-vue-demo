@@ -28,7 +28,7 @@ export default {
   },
   methods: {
      undo() {
-         alert('不用点了，该链接不会回应你的行为的！')
+         alert('不用点了，该链接是不会回应你的行为的！')
      }
   }
 }

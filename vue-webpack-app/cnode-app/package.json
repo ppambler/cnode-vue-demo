@@ -9,7 +9,8 @@
     "start": "npm run dev",
     "build": "node build/build.js",
     "upload": "npm run build; cd dist; git init; git add .; git commit -am \"init\"; git remote add origin git@github.com:ppambler/vue-cnode.git; git push -f origin master;",
-    "zip": "rm -f *.zip && zip  -r `git branch | grep '\\* ' | cut -d ' ' -f 2`.zip . -x 'node_modules/*'"
+    "zip": "rm -f *.zip && zip  -r `git branch | grep '\\* ' | cut -d ' ' -f 2`.zip . -x 'node_modules/*'",
+    "cop": "cp -r ./dist/ /g/git-2019/cnode-vue-2019/dist/"
   },
   "dependencies": {
     "axios": "^0.18.0",

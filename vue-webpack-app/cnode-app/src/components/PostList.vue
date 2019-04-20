@@ -2,7 +2,7 @@
   <div class="post-list">
     <!-- 帖子导航栏 -->
     <div class="post-list-header">
-      <ul>
+      <ul :class="{'click-fadeout': hasClick,'disabled':isDisabled}">
         <!-- 当我传参数时，需要拿到事件对象 -->
         <li class="current-tab all" @click="switchTab('all',$event)">
           全部
@@ -91,6 +91,7 @@ export default {
         selectTab: 'all',
         toson: 1,
         isWatchString: false,
+        isRequest: false,
     };
   },
   components: {
@@ -98,6 +99,8 @@ export default {
   },
   methods: {
     getData() {
+      if(this.isRequest) return;
+      this.isRequest = true
       this.$http
         .get("https://cnodejs.org/api/v1/topics", {
            params: {
@@ -113,9 +116,11 @@ export default {
             this.posts = res.data.data
             this.hasClick = false
             this.isDisabled = false
+            this.isRequest = false
         }).catch((e)=> {
+            this.isRequest = false
             console.log(e)
-        }) ;
+        })
     },
     renderList(value,isFade){
       this.postpage = value
