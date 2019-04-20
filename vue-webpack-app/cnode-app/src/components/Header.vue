@@ -9,11 +9,11 @@
                     <a>首页</a>
                 </router-link>
             </li>
-            <li><a href="#" @click="undo">新手入门</a></li>
-            <li><a href="#"  @click="undo">API</a></li>
-            <li><a href="#" @click="undo">关于</a></li>
-            <li><a href="#"  @click="undo">注册</a></li>
-            <li><a href="#"  @click="undo">登录</a></li>
+            <li><a @click="undo">新手入门</a></li>
+            <li><a @click="undo">API</a></li>
+            <li><a @click="undo">关于</a></li>
+            <li><a @click="undo">注册</a></li>
+            <li><a @click="undo">登录</a></li>
         </ul>
     </div>
 </template>
@@ -58,6 +58,7 @@ export default {
     }
     ul > li {
         margin-bottom: 4px;
+        cursor: pointer;
     }
     ul > li a {
         display: inline-block;

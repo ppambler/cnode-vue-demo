@@ -178,7 +178,7 @@ export default {
   },
   mounted() {
     console.log(this.selectTab)
-    // 我无法明白这个这样做为啥拿不到这个class
+    // 我无法明白这个这样做为啥拿不到这个class，因为少了「.」哈！
     // console.log($(this.selectTab))
     console.log(document.getElementsByClassName(this.selectTab))
     $(document.getElementsByClassName(this.selectTab)[0]).addClass('current-tab').siblings().removeClass('current-tab')
