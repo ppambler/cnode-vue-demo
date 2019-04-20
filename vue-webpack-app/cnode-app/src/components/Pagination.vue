@@ -21,14 +21,24 @@ export default {
   data() {
     return {
       pagebtns: [1, 2, 3, 4, 5, "……"],
-      currentPage: this.msg || 1,
+      currentPage: 1,
       judge: false,
     };
+  },
+  watch: {
+    msg() {
+      console.log('父组件的tab切换了')
+      this.currentPage = +this.msg
+      this.judge = false
+      this.pagebtns = [1, 2, 3, 4, 5, "……"]
+    }
   },
   methods: {
     changeBtn(page) {
       // 如果用户点了最右边的「……」则什么也不做
       // console.log(typeof page)
+      // alert(this.msg)
+      console.log('tab切换的结果：'+this.msg)
       if (page == '……') {
         return
       }
@@ -79,9 +89,9 @@ export default {
     if(/\d/.exec(window.location.hash)) {
       // 拿到的是是字符串所以转换一下！
       const page = +(/\d/.exec(window.location.hash)[0])
-      console.log(typeof page)
+      // console.log(typeof page)
       this.currentPage = page
-      console.log(this)
+      // console.log(this)
       if(page > 3) {
          this.pagebtns = [page-2,page-1,page,page+1,page+2,'……']
          this.judge = true

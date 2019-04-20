@@ -70,7 +70,7 @@
       </li>
       <li>
         <!-- 分页组件 -->
-        <Pagination @handleList="renderList" :msg="toMsg"></Pagination>
+        <Pagination @handleList="renderList" :msg="toson"></Pagination>
       </li>
     </ul>
   </div>
@@ -89,7 +89,8 @@ export default {
         hasClick: false,
         isDisabled: false,
         selectTab: 'all',
-        toMsg: /\d/.exec(window.location.hash) ? +(/\d/.exec(window.location.hash)) : 1
+        toson: 1,
+        isWatchString: false,
     };
   },
   components: {
@@ -102,13 +103,13 @@ export default {
            params: {
                tab: this.selectTab,
                page: this.postpage,
-               limit: '5'    
+               limit: '20'    
            }
         })
         .then(res => {
             // 加载成功，去除动画
             this.isLoading = false
-            console.log(res)
+            // console.log(res)
             this.posts = res.data.data
             this.hasClick = false
             this.isDisabled = false
@@ -123,20 +124,35 @@ export default {
       window.location.hash = `?tab=${this.selectTab}&page=${value}`
     },
     switchTab(tab,event) {
-      console.log(arguments)
-      console.log(event)
+      // console.log(arguments)
+      // console.log(event)
+      this.hasClick = true
+      this.isDisabled = true
       $(event.target).addClass('current-tab').siblings().removeClass('current-tab')
       this.selectTab = tab
       this.postpage = 1
       window.location.hash = `?tab=${this.selectTab}&page=${this.postpage}`
-
+      // 当我点击tab时，tabChange先与hashChange执行
+      // alert('tabChange')
+      console.log('tabChange')
+      if(!this.isWatchString) {
+        this.toson = '1'
+        this.isWatchString = true
+      } else {
+        this.toson = 1
+        this.isWatchString = false
+      }
     }
   },
   beforeMount() {
     const _this = this
     window.onhashchange = function() {
-      console.log(this)
+      // console.log(this)
       _this.getData()
+      // alert('hashChange')
+      console.log('hashchange')
+      // console.log(/\d/.exec(window.location.hash))
+      // console.log(_this.toson)
     }
     // 在数据加载成功之前显示加载动画
     this.isLoading = true
