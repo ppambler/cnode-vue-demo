@@ -9,11 +9,11 @@
                     <a>首页</a>
                 </router-link>
             </li>
-            <li><a href="#">新手入门</a></li>
-            <li><a href="#">API</a></li>
-            <li><a href="#">关于</a></li>
-            <li><a href="#">注册</a></li>
-            <li><a href="#">登录</a></li>
+            <li><a href="#" @click="undo">新手入门</a></li>
+            <li><a href="#"  @click="undo">API</a></li>
+            <li><a href="#" @click="undo">关于</a></li>
+            <li><a href="#"  @click="undo">注册</a></li>
+            <li><a href="#"  @click="undo">登录</a></li>
         </ul>
     </div>
 </template>
@@ -26,12 +26,11 @@ export default {
       msg: ''
     }
   },
-//   methods: {
-//       backIndex() {
-//           alert(1)
-//           window.location.hash = "?page=1"
-//       }
-//   }
+  methods: {
+     undo() {
+         alert('不用点了，该链接不会回应你的行为的！')
+     }
+  }
 }
 </script>
 
